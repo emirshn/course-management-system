@@ -58,19 +58,19 @@ export const CourseEdit: React.FC<IResourceComponentsProps> = () => {
                         options={[
                             {
                                 label: "9",
-                                value: "9",
+                                value: 9,
                             },
                             {
                                 label: "10",
-                                value: "10",
+                                value: 10,
                             },
                             {
                                 label: "11",
-                                value: "11",
+                                value: 11,
                             },
                             {
                                 label: "12",
-                                value: "12",
+                                value: 12,
                             },
                         ]}
                     />
