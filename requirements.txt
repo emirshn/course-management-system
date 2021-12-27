@@ -2,3 +2,4 @@ fastapi
 pypyodbc
 pydantic
 pyodbc
+uvicorn[standard]
