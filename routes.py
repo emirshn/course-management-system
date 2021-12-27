@@ -1,11 +1,7 @@
-from typing import Optional
-
 import pyodbc
 from fastapi import Response
-
-from db import TableModel, conn, run_query, fetch
-from fastapi import APIRouter, Form
-
+from db import conn, run_query, fetch
+from fastapi import APIRouter
 from models import Course
 
 router = APIRouter()
