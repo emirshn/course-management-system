@@ -7,6 +7,7 @@ import {
     useSelect,
     IResourceComponentsProps,
     useForm,
+    Radio,
 } from "@pankod/refine";
 
 import ReactMarkdown from "react-markdown";
@@ -31,7 +32,7 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
             <Form {...formProps} layout="vertical">
                 <Form.Item
                     label="Name"
-                    name="courseName"
+                    name="coursename"
                     rules={[
                         {
                             required: true,
@@ -71,8 +72,30 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
                     />
                 </Form.Item>
                 <Form.Item
+                    label="Active"
+                    name="isactive"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Radio.Group
+                        options={[
+                            {
+                                label: "True",
+                                value: 1,
+                            },
+                            {
+                                label: "False",
+                                value: 0,
+                            },
+                        ]}
+                    />
+                </Form.Item>
+                <Form.Item
                     label="Short Name"
-                    name="shortName"
+                    name="shortname"
                     rules={[
                         {
                             required: true,

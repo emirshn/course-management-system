@@ -13,14 +13,26 @@ connStr = (
 conn = pyodbc.connect(connStr)
 
 
-def query(sql, return_dict=False):
+def run_query(sql, params, response):
     try:
         cursor = conn.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, params)
+        conn.commit()
+    except pyodbc.Error as e:
+        response.status_code = 400
+        return {"error": str(e)}
+
+
+def fetch(sql, params=(), return_dict=True):
+    try:
+        cursor = conn.cursor()
+        cursor.execute(sql, params)
         if return_dict:
             ret = mssql_result2dict(cursor)
+            # rename the dict keys to match the column names
+            ret = {k.lower(): v for k, v in ret[0].items()}
         else:
-            ret = cursor.fetchone()
+            ret = cursor.fetchall()
         conn.commit()
     except pyodbc.Error as e:
         print(f'SQL Query Failed: {e}')

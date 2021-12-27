@@ -20,19 +20,19 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
         <List>
             <Table {...tableProps} rowKey="id">
                 <Table.Column
-                    dataIndex="courseid"
-                    key="courseid"
+                    dataIndex="course_id"
+                    key="course_id"
                     title="ID"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("courseid", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("course_id", sorter)}
                     sorter
                 />
                 <Table.Column
-                    dataIndex="coursename"
-                    key="coursename"
+                    dataIndex="course_name"
+                    key="course_name"
                     title="Name"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("coursename", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("course_name", sorter)}
                     sorter
                 />
                 <Table.Column
@@ -48,9 +48,9 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.id}/>
-                            <ShowButton hideText size="small" recordItemId={record.id}/>
-                            <DeleteButton hideText size="small" recordItemId={record.id}/>
+                            <EditButton hideText size="small" recordItemId={record.course_id}/>
+                            <ShowButton hideText size="small" recordItemId={record.course_id}/>
+                            <DeleteButton hideText size="small" recordItemId={record.course_id}/>
                         </Space>
                     )}
                 />

@@ -17,8 +17,9 @@ export interface IPost {
 }
 
 export interface ICourse {
-  id: string;
-  name: string;
+  course_id: string;
+  course_name: string;
+  is_active: number;
   grade: number;
-  shortName: string;
+  short_name: string;
 }
