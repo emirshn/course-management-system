@@ -44,13 +44,9 @@ def update_course(course: Course, response: Response):
 
 @router.delete("/course/{course_id}", tags=['Course'])
 def delete_course(course_id: int, response: Response):
-    try:
-        sql = "DELETE FROM Course WHERE courseID = ?"
-        params = (course_id,)
-        cursor = conn.cursor()
-        cursor.execute(sql, params)
-        conn.commit()
-    except pyodbc.Error as e:
-        response.status_code = 400
-        return {"error": str(e)}
-    return {"item_id": course_id}
+    sql = "DELETE FROM Course WHERE courseID = ?"
+    params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
