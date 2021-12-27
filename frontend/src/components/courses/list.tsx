@@ -20,19 +20,27 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
         <List>
             <Table {...tableProps} rowKey="id">
                 <Table.Column
-                    dataIndex="course_id"
-                    key="course_id"
+                    dataIndex="courseid"
+                    key="courseid"
                     title="ID"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("course_id", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("courseid", sorter)}
                     sorter
                 />
                 <Table.Column
-                    dataIndex="course_name"
-                    key="course_name"
+                    dataIndex="coursename"
+                    key="coursename"
                     title="Name"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("course_name", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("coursename", sorter)}
+                    sorter
+                />
+                <Table.Column
+                    dataIndex="shortname"
+                    key="shortname"
+                    title="Name"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("coursename", sorter)}
                     sorter
                 />
                 <Table.Column
@@ -48,9 +56,9 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.course_id}/>
-                            <ShowButton hideText size="small" recordItemId={record.course_id}/>
-                            <DeleteButton hideText size="small" recordItemId={record.course_id}/>
+                            <EditButton hideText size="small" recordItemId={record.courseid}/>
+                            <ShowButton hideText size="small" recordItemId={record.courseid}/>
+                            <DeleteButton hideText size="small" recordItemId={record.courseid}/>
                         </Space>
                     )}
                 />

@@ -30,6 +30,9 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
+                <Form.Item name="courseid" initialValue="-1" hidden>
+                    <Input/>
+                </Form.Item>
                 <Form.Item
                     label="Name"
                     name="coursename"

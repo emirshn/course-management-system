@@ -1,4 +1,5 @@
 import pypyodbc as pyodbc
+import regex
 
 connStr = (
     r'Driver={SQL Server};'
@@ -20,6 +21,7 @@ def run_query(sql, params, response):
         conn.commit()
     except pyodbc.Error as e:
         response.status_code = 400
+        print(f'SQL Query Failed: {e}')
         return {"error": str(e)}
 
 
@@ -29,8 +31,6 @@ def fetch(sql, params=(), return_dict=True):
         cursor.execute(sql, params)
         if return_dict:
             ret = mssql_result2dict(cursor)
-            # rename the dict keys to match the column names
-            ret = {k.lower(): v for k, v in ret[0].items()}
         else:
             ret = cursor.fetchall()
         conn.commit()
@@ -48,6 +48,7 @@ def mssql_result2dict(cursor):
     try:
         result = []
         columns = [column[0] for column in cursor.description]
+
         for row in cursor.fetchall():
             result.append(dict(zip(columns, row)))
 

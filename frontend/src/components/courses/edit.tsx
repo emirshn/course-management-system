@@ -24,7 +24,7 @@ export const CourseEdit: React.FC<IResourceComponentsProps> = () => {
             <Form {...formProps} layout="vertical">
                  <Form.Item
                     label="ID"
-                    name="course_id"
+                    name="courseid"
 
                     rules={[
                         {
@@ -36,7 +36,7 @@ export const CourseEdit: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                  <Form.Item
                     label="Name"
-                    name="course_name"
+                    name="coursename"
                     rules={[
                         {
                             required: true,
@@ -77,7 +77,7 @@ export const CourseEdit: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                 <Form.Item
                     label="Active"
-                    name="is_active"
+                    name="isactive"
                     rules={[
                         {
                             required: true,
@@ -99,7 +99,7 @@ export const CourseEdit: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                 <Form.Item
                     label="Short Name"
-                    name="short_name"
+                    name="shortname"
                     rules={[
                         {
                             required: true,

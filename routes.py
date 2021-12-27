@@ -40,7 +40,7 @@ async def get_course(course_id: int):
 @router.post("/course", tags=['Course'])
 def create_course(course: Course, response: Response):
     sql = "exec AddCourse @name = ?, @active = ?, @grade = ?, @shortName = ?"
-    params = (course.course_name, course.is_active, course.grade, course.short_name)
+    params = (course.coursename, course.isactive, course.grade, course.shortname)
     run_query(sql, params, response)
     return {
         "success": True
@@ -49,8 +49,8 @@ def create_course(course: Course, response: Response):
 
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
-    sql = "UPDATE FROM Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
-    params = (course.course_name, course.is_active, course.grade, course.short_name, course.course_id)
+    sql = "UPDATE Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
+    params = (course.coursename, course.isactive, course.grade, course.shortname, course.courseid)
     run_query(sql, params, response)
     return {
         "success": True

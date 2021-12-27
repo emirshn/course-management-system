@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class Course(BaseModel):
-    course_id: int
-    course_name: str
+    courseid: int
+    coursename: str
     grade: int
-    short_name: str
-    is_active: int
+    shortname: str
+    isactive: int

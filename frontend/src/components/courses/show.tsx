@@ -20,15 +20,15 @@ export const CourseShow: React.FC<IResourceComponentsProps> = () => {
     return (
         <Show isLoading={isLoading}>
             <Title level={5}>Course ID</Title>
-            <Text>{record?.course_id}</Text>
+            <Text>{record?.courseid}</Text>
             <Title level={5}>Name</Title>
-            <Text>{record?.course_name}</Text>
+            <Text>{record?.coursename}</Text>
             <Title level={5}>Short Name</Title>
-            <Text>{record?.short_name}</Text>
+            <Text>{record?.shortname}</Text>
             <Title level={5}>Grade</Title>
             <Text>{record?.grade}</Text>
             <Title level={5}>Is Active</Title>
-            <Text>{record?.is_active ? "True" : "False"}</Text>
+            <Text>{record?.isactive ? "True" : "False"}</Text>
         </Show>
     );
 };
