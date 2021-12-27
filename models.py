@@ -7,3 +7,12 @@ class Course(BaseModel):
     grade: int
     shortname: str
     isactive: int
+
+class Class(BaseModel):
+    classid: int
+    classname: str
+    classsize: int
+    classcapacity: str
+    classgrade: int
+    semester: int
+    section: int

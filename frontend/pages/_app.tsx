@@ -11,6 +11,7 @@ const API_URL = "http://localhost:8000";
 
 import {PostList, PostCreate, PostEdit, PostShow} from "@components/posts";
 import {CourseCreate, CourseEdit, CourseList, CourseShow} from "@components/courses";
+import {ClassCreate, ClassEdit, ClassList, ClassShow} from "@components/classes";
 
 function MyApp({Component, pageProps}: AppProps): JSX.Element {
     return (
@@ -31,6 +32,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     create: CourseCreate,
                     edit: CourseEdit,
                     show: CourseShow,
+                },
+                {
+                    name: "class",
+                    list: ClassList,
+                    create: ClassCreate,
+                    edit: ClassEdit,
+                    show: ClassShow,
                 },
             ]}
         >

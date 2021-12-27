@@ -15,27 +15,49 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {ICourse, IGrade} from "src/interfaces";
+import {IClass, IGrade} from "src/interfaces";
 import {number} from "prop-types";
 
-export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
+export const ClassCreate: React.FC<IResourceComponentsProps> = () => {
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
-    const {formProps, saveButtonProps} = useForm<ICourse>();
+    const {formProps, saveButtonProps} = useForm<IClass>();
 
-    const {selectProps} = useSelect<ICourse>({
-        resource: "course",
+    const {selectProps} = useSelect<IClass>({
+        resource: "class",
     });
 
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item name="courseid" initialValue="-1" hidden>
+                <Form.Item name="classid" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
                 <Form.Item
                     label="Name"
-                    name="coursename"
+                    name="classname"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Size"
+                    name="classsize"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Capacity"
+                    name="classcapacity"
                     rules={[
                         {
                             required: true,
@@ -46,59 +68,29 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                 <Form.Item
                     label="Grade"
-                    name="grade"
+                    name="classgrade"
                     rules={[
                         {
                             required: true,
                         },
                     ]}
                 >
-                    <Select
-                        options={[
-                            {
-                                label: "9",
-                                value: "9",
-                            },
-                            {
-                                label: "10",
-                                value: "10",
-                            },
-                            {
-                                label: "11",
-                                value: "11",
-                            },
-                            {
-                                label: "12",
-                                value: "12",
-                            },
-                        ]}
-                    />
+                    <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Active"
-                    name="isactive"
+                    label="Semester"
+                    name="semester"
                     rules={[
                         {
                             required: true,
                         },
                     ]}
                 >
-                    <Radio.Group
-                        options={[
-                            {
-                                label: "True",
-                                value: 1,
-                            },
-                            {
-                                label: "False",
-                                value: 0,
-                            },
-                        ]}
-                    />
+                    <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Short Name"
-                    name="shortname"
+                    label="Section"
+                    name="section"
                     rules={[
                         {
                             required: true,
