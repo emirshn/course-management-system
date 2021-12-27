@@ -38,7 +38,7 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
                 <Table.Column
                     dataIndex="shortname"
                     key="shortname"
-                    title="Name"
+                    title="Short Name"
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("coursename", sorter)}
                     sorter
