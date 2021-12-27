@@ -1,30 +1,50 @@
 from typing import Optional
-from db import TableModel, query
+
+import pyodbc
+from fastapi import Response
+
+from db import TableModel, query, conn
 from fastapi import APIRouter, Form
+
+from models import Course
 
 router = APIRouter()
 
 
 @router.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "World"} \
+ \
+           @ router.get("/items/{item_id}")
 
 
-@router.get("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 
+@router.get("/grade", tags=['Grade'])
+def read_root():
+    return [{'grade': 9}, {'grade': 10}, {'grade': 11}, {'grade': 12}]
+
+
 @router.get("/course", tags=['Course'])
 async def courses_list():
-    return query("SELECT * FROM Course")
+    return query("SELECT * FROM Course", True)
 
 
 @router.post("/course", tags=['Course'])
-def create_course(courseID: int = Form(...), courseName: str = Form(...)):
+def create_course(course: Course, response: Response):
+    try:
+        sql = "exec AddCourse @name = ?, @active = ?, @grade = ?, @shortName = ?"
+        params = (course.courseName, 1, course.grade, course.shortName)
+        cursor = conn.cursor()
+        cursor.execute(sql, params)
+        conn.commit()
+    except pyodbc.Error as e:
+        response.status_code = 400
+        return {"error": str(e)}
     return {
-        "status": "SUCCESS",
-        "data": str(courseID) + courseName
+        "success": True
     }
 
 

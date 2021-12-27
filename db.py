@@ -13,11 +13,14 @@ connStr = (
 conn = pyodbc.connect(connStr)
 
 
-def query(sql):
+def query(sql, return_dict=False):
     try:
         cursor = conn.cursor()
         cursor.execute(sql)
-        ret = mssql_result2dict(cursor)
+        if return_dict:
+            ret = mssql_result2dict(cursor)
+        else:
+            ret = cursor.fetchone()
         conn.commit()
     except pyodbc.Error as e:
         print(f'SQL Query Failed: {e}')

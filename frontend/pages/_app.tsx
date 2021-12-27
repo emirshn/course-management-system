@@ -26,7 +26,7 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     show: PostShow,
                 },
                 {
-                    name: "courses",
+                    name: "course",
                     list: CourseList,
                     create: CourseCreate,
                     edit: CourseEdit,

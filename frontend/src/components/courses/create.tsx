@@ -14,7 +14,7 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {ICourse} from "src/interfaces";
+import {ICourse, IGrade} from "src/interfaces";
 import {number} from "prop-types";
 
 export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
@@ -22,12 +22,16 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {formProps, saveButtonProps} = useForm<ICourse>();
 
+    const {selectProps} = useSelect<ICourse>({
+        resource: "course",
+    });
+
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
                 <Form.Item
-                    label="ID"
-                    name="id"
+                    label="Name"
+                    name="courseName"
                     rules={[
                         {
                             required: true,
@@ -35,20 +39,40 @@ export const CourseCreate: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input/>
-                </Form.Item><Form.Item
-                label="Name"
-                name="name"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <Input/>
-            </Form.Item>
+                </Form.Item>
                 <Form.Item
                     label="Grade"
                     name="grade"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Select
+                        options={[
+                            {
+                                label: "9",
+                                value: "9",
+                            },
+                            {
+                                label: "10",
+                                value: "10",
+                            },
+                            {
+                                label: "11",
+                                value: "11",
+                            },
+                            {
+                                label: "12",
+                                value: "12",
+                            },
+                        ]}
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Short Name"
+                    name="shortName"
                     rules={[
                         {
                             required: true,

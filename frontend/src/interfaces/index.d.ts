@@ -2,6 +2,11 @@ export interface ICategory {
   id: string;
   title: string;
 }
+
+export interface IGrade {
+  grade: number;
+}
+
 export interface IPost {
   id: string;
   title: string;
@@ -12,7 +17,8 @@ export interface IPost {
 }
 
 export interface ICourse {
-  id: number;
+  id: string;
   name: string;
   grade: number;
+  shortName: string;
 }
