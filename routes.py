@@ -23,6 +23,10 @@ async def courses_list():
 async def classes_list():
     return fetch("SELECT * FROM Class")
 
+@router.get("/student", tags=['Student'])
+async def students_list():
+    return fetch("SELECT * FROM Student")
+
 
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
@@ -32,6 +36,10 @@ async def get_course(course_id: int):
 @router.get("/class/{class_id}", tags=['Class'])
 async def get_class(class_id: int):
     return fetch("SELECT * FROM Class WHERE classID = ?", (class_id,))[0]
+
+@router.get("/student/{student_id}", tags=['Student'])
+async def get_student(student_id: int):
+    return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
 
 
 @router.post("/course", tags=['Course'])
@@ -52,6 +60,8 @@ def create_class(clas: Class, response: Response):
     return {
         "success": True
     }
+
+
 
 
 @router.patch("/course/{course_id}", tags=['Course'])

@@ -1,4 +1,4 @@
-pypyodbc~=1.3.6
-fastapi~=0.70.1
-pydantic~=1.8.2
-pyodbc~=4.0.32
+pypyodbc==1.3.6
+fastapi==0.70.1
+pydantic==1.8.2
+pyodbc==4.0.32
