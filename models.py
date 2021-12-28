@@ -13,7 +13,7 @@ class Class(BaseModel):
     classid: int
     classname: str
     classsize: int
-    classcapacity: str
+    classcapacity: int
     classgrade: int
     semester: int
     section: int
