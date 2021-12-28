@@ -33,3 +33,12 @@ export interface IClass {
   semester: number;
   section: number;
 }
+
+export interface IStudent {
+  studentid: string;
+  school: string;
+  grade: number;
+  section: number;
+  userid: number;
+  class: number;
+}

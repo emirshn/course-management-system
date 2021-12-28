@@ -16,3 +16,12 @@ class Class(BaseModel):
     classgrade: int
     semester: int
     section: int
+
+class Student(BaseModel):
+    classid: int
+    classname: str
+    classsize: int
+    classcapacity: int
+    classgrade: int
+    semester: int
+    section: int
