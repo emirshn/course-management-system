@@ -15,7 +15,7 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {IClass, IGrade} from "src/interfaces";
+import {IClass} from "src/interfaces";
 import {number} from "prop-types";
 
 export const ClassCreate: React.FC<IResourceComponentsProps> = () => {

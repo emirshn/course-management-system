@@ -66,7 +66,7 @@ def update_course(course: Course, response: Response):
 @router.patch("/class/{class_id}", tags=['Class'])
 def update_class(clas: Class, response: Response):
     sql = "UPDATE Class SET className = ?, classSize = ?, classCapacity = ?, classGrade = ?, semester = ?, section = ? WHERE classID = ?"
-    params = (clas.classname, clas.classsize, clas.classcapacity, clas.classgrade, clas.semester, clas.section)
+    params = (clas.classname, clas.classsize, clas.classcapacity, clas.classgrade, clas.semester, clas.section, clas.classid)
     run_query(sql, params, response)
     return {
         "success": True
