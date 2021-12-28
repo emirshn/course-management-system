@@ -33,3 +33,20 @@ export interface IClass {
   semester: number;
   section: number;
 }
+export interface IUser {
+  userid: string;
+  firstname: string;
+  lastname: string;
+  username: string;
+  password: string;
+  email: string;
+  phonenumber: string;
+  address: string;
+  lastlogin: string;
+  registerdate: string;
+  birthdate: string;
+  age: number;
+  isconfirmed: number;
+  isactive: number;
+  usertype: string;
+}
