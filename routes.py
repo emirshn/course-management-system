@@ -4,6 +4,7 @@ from db import conn, run_query, fetch
 from fastapi import APIRouter
 from models import Course
 from models import Class
+from models import User
 
 router = APIRouter()
 
@@ -91,3 +92,48 @@ def delete_class(class_id: int, response: Response):
     return {
         "success": True
     }
+@router.get("/user", tags=['User'])
+async def users_list():
+    return fetch("SELECT * FROM [User]")
+
+
+@router.get("/user/{user_id}", tags=['User'])
+async def get_user(user_id: int):
+    return fetch("SELECT * FROM [User] WHERE userID = ?", (user_id,))[0]
+
+@router.post("/user", tags=['User'])
+def create_user(user: User, response: Response):
+    sql = "exec AddUser @first = ?, @last = ?, @username = ?, @password = ?, @email = ?, @phone = ?, @address = ?, @birth = ?, @isConfirmed = ?, @isActive = ?, @userType = ?, @registerDate = ?"
+    params = (user.firstname, user.lastname, user.username, user.password,user.email
+    ,user.phonenumber,user.address,user.birthdate,user.isconfirmed,user.isactive,user.usertype
+    ,user.registerdate)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.patch("/user/{user_id}", tags=['User'])
+def update_user(user: User, response: Response):
+    sql = "UPDATE [User] SET firstName = ?, lastName = ?, username = ?, password = ?, email = ?, phoneNumber = ?, address = ?, birthDate = ?, isConfirmed = ?, isActive = ?, userType = ?, registerDate = ?"
+    params = (user.firstname, user.lastname, user.username, user.password,user.email
+    ,user.phonenumber,user.address,user.birthdate,user.isconfirmed,user.isactive,user.usertype
+    ,user.registerdate)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.delete("/user/{user_id}", tags=['User'])
+def delete_user(user_id: int, response: Response):
+    try:
+        sql = "DELETE FROM [User] WHERE userId = ?"
+        params = (user_id,)
+        cursor = conn.cursor()
+        cursor.execute(sql, params)
+        conn.commit()
+    except pyodbc.Error as e:
+        response.status_code = 400
+        return {"error": str(e)}
+    return {"item_id": user_id}
+
