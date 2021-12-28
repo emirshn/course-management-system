@@ -1,4 +1,6 @@
 venv
 *.zip
 frontend/.next/
-requirements.txt
+__pycache__
+.idea
+test

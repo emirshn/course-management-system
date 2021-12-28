@@ -1,5 +1,4 @@
 import pypyodbc as pyodbc
-import regex
 
 connStr = (
     r'Driver={SQL Server};'

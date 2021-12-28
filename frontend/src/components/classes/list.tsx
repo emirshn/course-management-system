@@ -7,7 +7,7 @@ import {
     getDefaultSortOrder,
     GetListResponse, Space, EditButton, ShowButton, DeleteButton,
 } from "@pankod/refine";
-import {IClass, IPost} from "src/interfaces";
+import {IClass} from "src/interfaces";
 
 export const ClassList: React.FC<IResourceComponentsProps<GetListResponse<IClass>>> = ({initialData}) => {
     const {tableProps, sorter} = useTable<IClass>({
@@ -18,7 +18,7 @@ export const ClassList: React.FC<IResourceComponentsProps<GetListResponse<IClass
 
     return (
         <List>
-            <Table {...tableProps} rowKey="id">
+            <Table {...tableProps} rowKey="classid">
                 <Table.Column
                     dataIndex="classid"
                     key="classid"
