@@ -76,10 +76,11 @@ export const StudentEdit: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
+                    <Input/>
                 </Form.Item>
                 <Form.Item
                     label="Class"
-                    name="class"
+                    name="studentclass"
                     rules={[
                         {
                             required: true,

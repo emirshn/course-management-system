@@ -75,6 +75,7 @@ export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
+                    <Input/>
                 </Form.Item>
                 <Form.Item
                     label="User ID"
@@ -89,7 +90,73 @@ export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                 <Form.Item
                     label="Class"
-                    name="class"
+                    name="studentclass"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="First Name"
+                    name="firstname"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Last Name"
+                    name="lastname"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Phone Number"
+                    name="phonenumber"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Address"
+                    name="address"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Birthdate"
+                    name="birthdate"
                     rules={[
                         {
                             required: true,
