@@ -18,7 +18,7 @@ export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICour
 
     return (
         <List>
-            <Table {...tableProps} rowKey="id">
+            <Table {...tableProps} rowKey="courseid">
                 <Table.Column
                     dataIndex="courseid"
                     key="courseid"

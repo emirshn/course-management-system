@@ -17,6 +17,7 @@ def read_root():
 async def courses_list():
     return fetch("SELECT * FROM Course")
 
+
 @router.get("/class", tags=['Class'])
 async def classes_list():
     return fetch("SELECT * FROM Class")
@@ -25,6 +26,7 @@ async def classes_list():
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
     return fetch("SELECT * FROM Course WHERE courseID = ?", (course_id,))[0]
+
 
 @router.get("/class/{class_id}", tags=['Class'])
 async def get_class(class_id: int):
@@ -39,6 +41,7 @@ def create_course(course: Course, response: Response):
     return {
         "success": True
     }
+
 
 @router.post("/class", tags=['Class'])
 def create_class(clas: Class, response: Response):
@@ -59,6 +62,7 @@ def update_course(course: Course, response: Response):
         "success": True
     }
 
+
 @router.patch("/class/{class_id}", tags=['Class'])
 def update_class(clas: Class, response: Response):
     sql = "UPDATE Class SET className = ?, classSize = ?, classCapacity = ?, classGrade = ?, semester = ?, section = ? WHERE classID = ?"
@@ -77,6 +81,7 @@ def delete_course(course_id: int, response: Response):
     return {
         "success": True
     }
+
 
 @router.delete("/class/{class_id}", tags=['Class'])
 def delete_class(class_id: int, response: Response):

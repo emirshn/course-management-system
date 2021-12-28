@@ -8,6 +8,7 @@ class Course(BaseModel):
     shortname: str
     isactive: int
 
+
 class Class(BaseModel):
     classid: int
     classname: str

@@ -2,3 +2,4 @@ venv
 *.zip
 frontend/.next/
 __pycache__
+.idea
