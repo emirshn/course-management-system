@@ -23,3 +23,13 @@ export interface ICourse {
   grade: number;
   shortname: string;
 }
+
+export interface IClass {
+  classid: string;
+  classname: string;
+  classsize: number;
+  classcapacity: number;
+  classgrade: number;
+  semester: number;
+  section: number;
+}
