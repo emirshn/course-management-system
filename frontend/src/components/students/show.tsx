@@ -30,7 +30,7 @@ export const StudentShow: React.FC<IResourceComponentsProps> = () => {
             <Title level={5}>User ID</Title>
             <Text>{record?.userid}</Text>
             <Title level={5}>Class</Title>
-            <Text>{record?.class}</Text>
+            <Text>{record?.studentclass}</Text>
         </Show>
     );
 };
