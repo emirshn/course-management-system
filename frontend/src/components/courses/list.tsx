@@ -7,7 +7,7 @@ import {
     getDefaultSortOrder,
     GetListResponse, Space, EditButton, ShowButton, DeleteButton,
 } from "@pankod/refine";
-import {ICourse, IPost} from "src/interfaces";
+import {ICourse} from "src/interfaces";
 
 export const CourseList: React.FC<IResourceComponentsProps<GetListResponse<ICourse>>> = ({initialData}) => {
     const {tableProps, sorter} = useTable<ICourse>({
