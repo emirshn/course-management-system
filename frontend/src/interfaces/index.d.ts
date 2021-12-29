@@ -60,3 +60,10 @@ export interface IUser {
   isactive: number;
   usertype: string;
 }
+
+export interface ICourseSchedule{
+  classid:int
+  courseid:int
+  coursehour:int
+  courseday:int
+}
