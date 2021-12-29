@@ -1,6 +1,5 @@
+from typing import Optional
 from pydantic import BaseModel
-
-
 class Course(BaseModel):
     courseid: int
     coursename: str
@@ -43,3 +42,8 @@ class User(BaseModel):
   isconfirmed: int
   isactive: int
   usertype: str
+class CourseSchedule(BaseModel):
+    classid: int
+    courseid: int
+    coursehour: int
+    courseday: int
