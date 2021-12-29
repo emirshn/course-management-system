@@ -43,3 +43,9 @@ class Student(User):
     section: int
     userid: int
     studentclass: Optional[int]
+
+class CourseSchedule(BaseModel):
+    classid: int
+    courseid: int
+    coursehour: int
+    courseday: int

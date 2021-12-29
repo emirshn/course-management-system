@@ -2,7 +2,7 @@ import pyodbc
 from fastapi import Response
 from db import conn, run_query, fetch
 from fastapi import APIRouter
-from models import Course
+from models import Course, CourseSchedule
 from models import Class
 from models import User
 from models import Student
@@ -174,3 +174,47 @@ def delete_user(user_id: int, response: Response):
         return {"error": str(e)}
     return {"item_id": user_id}
 
+
+@router.get('/schedule', tags = ['CourseSchedule'])
+async def get_class():
+    # return fetch('''
+    #     select distinct class.className
+    #     from Class, Course_Schedule schedule
+    #     where class.classID = schedule.classID
+    # ''');
+    return fetch('select distinct Course_Schedule.classID from Course_Schedule')
+
+@router.get('/schedule/{classId}', tags=['CourseSchedule'])
+def getSchedule(classId:int, response: Response):
+    sql = 'select * from Course_Schedule where classID = ?'
+    params = (classId,)
+    run_query(sql, params, response)
+    return { "success" : True }
+
+@router.post('/schedule',tags = ['CourseSchedule'] )
+def createSchedule(schedule: CourseSchedule, response: Response):
+    sql = "insert into Course_Schedule(classID, courseID, courseDay, courseHour) values(?,?,?,?)"
+    params = (schedule.classid, schedule.courseid, schedule.courseday, schedule.coursehour)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.patch('/schedule', tags = ['CourseSchedule'])
+def editSchedule(courseSchedule: CourseSchedule, response: Response):
+    sql = "UPDATE Course_Schedule SET courseID = ?, classID = ?, courseDay = ?, courseHour = ?"
+    params = (courseSchedule.courseid, courseSchedule.classid, courseSchedule.courseday, courseSchedule.coursehour)
+    run_query(sql, params, response)
+    return {
+        "success" : True
+    }
+    
+@router.delete('/schedule/{course_id}', tags=['CourseSchedule'])
+def deleteSchedule(course_id:int, response: Response):
+    sql = "delete from Course_Schedule where courseID = ?"
+    params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+    
