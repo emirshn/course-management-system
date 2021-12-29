@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from models import Course, CourseSchedule
 from models import Class
 from models import User
+from models import Student
 
 router = APIRouter()
 
@@ -61,7 +62,14 @@ def create_class(clas: Class, response: Response):
         "success": True
     }
 
-
+@router.post("/student", tags=['Student'])
+def create_student( student: Student, response: Response):
+    sql = "exec AddStudent @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?, @school = ?, @grade = ?, @section = ?"
+    params = (student.firstname, student.lastname, student.email, student.phonenumber, student.address, student.birthdate, student.school,student.grade, student.section)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 
 @router.patch("/course/{course_id}", tags=['Course'])
@@ -78,6 +86,15 @@ def update_course(course: Course, response: Response):
 def update_class(clas: Class, response: Response):
     sql = "UPDATE Class SET className = ?, classSize = ?, classCapacity = ?, classGrade = ?, semester = ?, section = ? WHERE classID = ?"
     params = (clas.classname, clas.classsize, clas.classcapacity, clas.classgrade, clas.semester, clas.section, clas.classid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.patch("/student/{student_id}", tags=['Student'])
+def update_student(student: Student, response: Response):
+    sql = "UPDATE Student SET grade = ?, school = ?, section = ?, userID = ?, class = ? WHERE studentID = ?"
+    params = (student.grade, student.school, student.section, student.userid, student.studentclass, student.studentid)
     run_query(sql, params, response)
     return {
         "success": True
@@ -102,6 +119,16 @@ def delete_class(class_id: int, response: Response):
     return {
         "success": True
     }
+
+@router.delete("/student/{student_id}", tags=['Student'])
+def delete_class(student_id: int, response: Response):
+    sql = "DELETE FROM Student WHERE studentID = ?"
+    params = (student_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
 @router.get("/user", tags=['User'])
 async def users_list():
     return fetch("SELECT * FROM [User]")

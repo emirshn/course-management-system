@@ -61,10 +61,10 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
                 />
                 <Table.Column
                     dataIndex="class"
-                    key="class"
+                    key="studentclass"
                     title="Class"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("class", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("studentclass", sorter)}
                     sorter
                 />
                 <Table.Column<IStudent>
