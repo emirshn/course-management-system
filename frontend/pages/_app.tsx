@@ -13,6 +13,7 @@ import {PostList, PostCreate, PostEdit, PostShow} from "@components/posts";
 import {CourseCreate, CourseEdit, CourseList, CourseShow} from "@components/courses";
 import {ClassCreate, ClassEdit, ClassList, ClassShow} from "@components/classes";
 import {StudentCreate, StudentEdit, StudentList, StudentShow} from "@components/students";
+import {ScheduleCreate, ScheduleEdit, ScheduleList, ScheduleShow} from "@components/schedule"
 
 function MyApp({Component, pageProps}: AppProps): JSX.Element {
     return (
@@ -40,6 +41,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     create: ClassCreate,
                     edit: ClassEdit,
                     show: ClassShow,
+                },
+                {
+                    name: "schedule",
+                    list: ScheduleList,
+                    create: ScheduleCreate,
+                    edit: ScheduleEdit,
+                    show: ScheduleShow,
                 },
                 {
                     name: "student",
