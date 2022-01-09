@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class Course(BaseModel):
     courseid: int
     coursename: str
@@ -36,6 +37,7 @@ class User(BaseModel):
     isactive: Optional[int]
     usertype: Optional[str]
 
+
 class Student(User):
     studentid: int
     school: str
@@ -43,6 +45,7 @@ class Student(User):
     section: int
     userid: int
     studentclass: Optional[int]
+
 
 class CourseSchedule(BaseModel):
     classid: int

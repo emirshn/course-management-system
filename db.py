@@ -13,6 +13,18 @@ connStr = (
 conn = pyodbc.connect(connStr)
 
 
+def row_count(sql):
+    try:
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        ret = cursor.rowcount
+    except pyodbc.Error as e:
+        print(e)
+        ret = 0
+
+    return ret
+
+
 def run_query(sql, params, response):
     try:
         cursor = conn.cursor()
