@@ -1,69 +1,73 @@
 export interface ICategory {
-  id: string;
-  title: string;
+    id: string;
+    title: string;
 }
 
 export interface IGrade {
-  grade: number;
+    grade: number;
 }
 
 export interface IPost {
-  id: string;
-  title: string;
-  content: string;
-  status: "published" | "draft" | "rejected";
-  createdAt: string;
-  category: ICategory;
+    id: string;
+    title: string;
+    content: string;
+    status: "published" | "draft" | "rejected";
+    createdAt: string;
+    category: ICategory;
 }
 
 export interface ICourse {
-  courseid: string;
-  coursename: string;
-  isactive: number;
-  grade: number;
-  shortname: string;
+    courseid: string;
+    coursename: string;
+    isactive: number;
+    grade: number;
+    shortname: string;
 }
 
 export interface IClass {
-  classid: string;
-  classname: string;
-  classsize: number;
-  classcapacity: number;
-  classgrade: number;
-  semester: number;
-  section: number;
+    classid: string;
+    classname: string;
+    classsize: number;
+    classcapacity: number;
+    classgrade: number;
+    semester: number;
+    section: number;
 }
 
 export interface IStudent {
-  studentid: string;
-  school: string;
-  grade: number;
-  section: number;
-  userid: number;
-  class: number;
+    studentid: string;
+    school: string;
+    grade: number;
+    section: number;
+    userid: number;
+    class: number;
 }
 
 export interface IUser {
-  userid: string;
-  firstname: string;
-  lastname: string;
-  username: string;
-  password: string;
-  email: string;
-  phonenumber: string;
-  address: string;
-  lastlogin: string;
-  registerdate: string;
-  birthdate: string;
-  age: number;
-  isconfirmed: number;
-  isactive: number;
-  usertype: string;
+    userid: string;
+    firstname: string;
+    lastname: string;
+    username: string;
+    password: string;
+    email: string;
+    phonenumber: string;
+    address: string;
+    lastlogin: string;
+    registerdate: string;
+    birthdate: string;
+    age: number;
+    isconfirmed: number;
+    isactive: number;
+    usertype: string;
 }
 
-export interface ICourseSchedule{
-  classid:int
-  courseid:int
-  coursehour:int
-  courseday:int
+export interface ICourseSchedule {
+    classid: int
+    courseid: int
+    coursehour: int
+    courseday: int
+}
+
+export interface IParent {
+    parentid: string
 }

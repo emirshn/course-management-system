@@ -35,6 +35,16 @@ async def students_list():
     return fetch("SELECT * FROM Student")
 
 
+@router.get("/parent", tags=['Parent'])
+async def parents_list():
+    return fetch("SELECT * FROM Parent")
+
+
+@router.get("/users", tags=['User'])
+async def users_list():
+    return fetch("SELECT * FROM [User]")
+
+
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
     return fetch("SELECT * FROM Course WHERE courseID = ?", (course_id,))[0]
@@ -48,6 +58,11 @@ async def get_class(class_id: int):
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
     return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
+
+
+@router.get("/parent/{parent_id}", tags=['Parent'])
+async def get_parent(parent_id: int):
+    return fetch("SELECT * FROM Parent WHERE parentID = ?", (parent_id,))[0]
 
 
 @router.post("/login", tags=['User'])
