@@ -33,7 +33,7 @@ async def classes_list():
 
 @router.get("/student", tags=['Student'])
 async def students_list():
-    return fetch("SELECT * FROM Student")
+    return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
 
 @router.get("/parent", tags=['Parent'])

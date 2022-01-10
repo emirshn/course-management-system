@@ -27,6 +27,27 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
                     defaultSortOrder={getDefaultSortOrder("studentid", sorter)}
                     sorter
                 />
+
+                <Table.Column 
+                    dataIndex="firstname"
+                    key="firstname"
+                    title="Firstname"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("firstname", sorter)}
+                    sorter
+                /> 
+                {/* <TextField value = {"some"}> {console.log(tableProps) }</TextField> */}
+
+                <Table.Column 
+                    dataIndex="lastname"
+                    key="lastname"
+                    title="Lastname"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("lastname", sorter)}
+                    sorter
+                /> 
+                {/* <TextField value = {"some"}> {console.log(tableProps) }</TextField> */}
+
                 <Table.Column
                     dataIndex="school"
                     key="school"
