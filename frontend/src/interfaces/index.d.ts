@@ -71,3 +71,8 @@ export interface ICourseSchedule {
 export interface IParent {
     parentid: string
 }
+
+export interface ISchool {
+    schoolid: int
+    schoolname: string
+}
