@@ -11,6 +11,7 @@ from models import Course, CourseSchedule
 from models import Class
 from models import User
 from models import Student
+from models import School
 
 router = APIRouter()
 
@@ -44,6 +45,9 @@ async def parents_list():
 async def users_list():
     return fetch("SELECT * FROM [User]")
 
+@router.get("/schools", tags=['School'])
+async def school_list():
+    return fetch("SELECT * FROM [School]")
 
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
@@ -63,6 +67,10 @@ async def get_student(student_id: int):
 @router.get("/parent/{parent_id}", tags=['Parent'])
 async def get_parent(parent_id: int):
     return fetch("SELECT * FROM Parent WHERE parentID = ?", (parent_id,))[0]
+
+@router.get("/school/{school_id}", tags=['School'])
+async def get_school(school_id: int):
+    return fetch("SELECT * FROM School WHERE id = ?", (school_id,))[0]
 
 
 @router.post("/login", tags=['User'])
@@ -107,6 +115,14 @@ def create_student(student: Student, response: Response):
         "success": True
     }
 
+@router.post("/school", tags=['School'])
+def create_school(school: School, response: Response):
+    sql = "INSERT INTO School (name) VALUES (?); "
+    params = school.schoolname
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
@@ -138,6 +154,14 @@ def update_student(student: Student, response: Response):
         "success": True
     }
 
+@router.patch("/school/{school_id}", tags=['School'])
+def update_school(school: School, response: Response):
+    sql = "UPDATE School SET name = ?"
+    params = school.schoolname
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.delete("/course/{course_id}", tags=['Course'])
 def delete_course(course_id: int, response: Response):
@@ -168,6 +192,14 @@ def delete_class(student_id: int, response: Response):
         "success": True
     }
 
+@router.delete("/school/{school_id}", tags=['School'])
+def delete_school(school_id: int, response: Response):
+    sql = "DELETE FROM School WHERE id = ?"
+    params = school_id
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.get("/user", tags=['User'])
 async def users_list():
