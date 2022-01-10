@@ -9,7 +9,7 @@ import {
 } from "@pankod/refine";
 import {ISchool, IPost} from "src/interfaces";
 
-export const SchoolList: React.FC<IResourceComponentsProps<GetListResponse<IUser>>> = ({initialData}) => {
+export const SchoolList: React.FC<IResourceComponentsProps<GetListResponse<ISchool>>> = ({initialData}) => {
     const {tableProps, sorter} = useTable<ISchool>({
         queryOptions: {
             initialData,

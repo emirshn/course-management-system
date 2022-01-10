@@ -17,7 +17,7 @@ import {ISchool} from "src/interfaces";
 
 export const SchoolEdit: React.FC<IResourceComponentsProps> = () => {
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
-    const {formProps, saveButtonProps, queryResult} = useForm<IUser>();
+    const {formProps, saveButtonProps, queryResult} = useForm<ISchool>();
 
     return (
         <Edit saveButtonProps={saveButtonProps}>

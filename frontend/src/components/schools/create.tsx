@@ -21,7 +21,7 @@ import {number} from "prop-types";
 export const SchoolCreate: React.FC<IResourceComponentsProps> = () => {
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
-    const {formProps, saveButtonProps} = useForm<IUser>();
+    const {formProps, saveButtonProps} = useForm<ISchool>();
 
     const {selectProps} = useSelect<ISchool>({
         resource: "school",
