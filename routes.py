@@ -1,17 +1,13 @@
 import hashlib
-from hashlib import sha256
 
 import pyodbc
-from fastapi import Response
-# from tornado.escape import utf8
-
-from db import conn, run_query, fetch, row_count
 from fastapi import APIRouter
-from models import Course, CourseSchedule, Semester
-from models import Class
-from models import User
-from models import Student
-from models import School
+from fastapi import Response
+
+from db import conn, run_query, fetch
+from models import *
+
+# from tornado.escape import utf8
 
 router = APIRouter()
 
@@ -35,9 +31,11 @@ async def classes_list():
 async def students_list():
     return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
+
 @router.get("/section", tags=['Section'])
 async def section_list():
     return fetch("SELECT * FROM [Section]")
+
 
 @router.get("/parent", tags=['Parent'])
 async def parents_list():
@@ -48,13 +46,16 @@ async def parents_list():
 async def users_list():
     return fetch("SELECT * FROM [User]")
 
+
 @router.get("/schools", tags=['School'])
 async def school_list():
     return fetch("SELECT * FROM [School]")
 
-@router.get('/semester', tags = ['Semester'])
-async def getSemesters():
+
+@router.get('/semester', tags=['Semester'])
+async def get_semesters():
     return fetch('SELECT * FROM Semester')
+
 
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
@@ -65,9 +66,11 @@ async def get_course(course_id: int):
 async def get_class(class_id: int):
     return fetch("SELECT * FROM Class WHERE classID = ?", (class_id,))[0]
 
+
 @router.get("/section/{section_id}", tags=['Section'])
 async def get_section(section_id: int):
     return fetch("SELECT * FROM Section WHERE id = ?", (section_id,))[0]
+
 
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
@@ -78,13 +81,16 @@ async def get_student(student_id: int):
 async def get_parent(parent_id: int):
     return fetch("SELECT * FROM Parent WHERE parentID = ?", (parent_id,))[0]
 
+
 @router.get("/school/{school_id}", tags=['School'])
 async def get_school(school_id: int):
     return fetch("SELECT * FROM School WHERE id = ?", (school_id,))[0]
 
+
 @router.get("/semester/{semester_id}", tags=['Semester'])
-async def getSemester(semester_id: int):
+async def get_semester(semester_id: int):
     return fetch("SELECT * FROM Semester WHERE semesterID = ?", (semester_id,))[0]
+
 
 @router.post("/login", tags=['User'])
 def check_credentials(email: str, password: str, response: Response):
@@ -128,6 +134,7 @@ def create_student(student: Student, response: Response):
         "success": True
     }
 
+
 @router.post("/school", tags=['School'])
 def create_school(school: School, response: Response):
     sql = "INSERT INTO School (name) VALUES (?); "
@@ -137,8 +144,9 @@ def create_school(school: School, response: Response):
         "success": True
     }
 
+
 @router.post("/semester", tags=['Semester'])
-def createSemester(semester: Semester, response: Response):
+def create_semester(semester: Semester, response: Response):
     sql = "exec AddSemester @semesterDescription = ?, @startingDate = ?, @endingDate = ?, @isActive = ?"
     print(semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive)
     params = (semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive)
@@ -146,6 +154,7 @@ def createSemester(semester: Semester, response: Response):
     return {
         "success": True
     }
+
 
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
@@ -155,6 +164,7 @@ def update_course(course: Course, response: Response):
     return {
         "success": True
     }
+
 
 @router.patch("/section/{section_id}", tags=['Section'])
 def update_section(section: Section, response: Response):
@@ -186,6 +196,7 @@ def update_student(student: Student, response: Response):
         "success": True
     }
 
+
 @router.patch("/school/{school_id}", tags=['School'])
 def update_school(school: School, response: Response):
     sql = "UPDATE School SET name = ?"
@@ -195,14 +206,17 @@ def update_school(school: School, response: Response):
         "success": True
     }
 
+
 @router.patch("/semester/{semester_id}", tags=['Semester'])
-def updateSemester(semester: Semester, response: Response):
+def update_semester(semester: Semester, response: Response):
     sql = "UPDATE Semester SET semesterDescription = ?, startingDate = ?, endingDate = ?, isActive = ? WHERE semesterID = ?"
-    params = (semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive, semester.semesterid)
+    params = (
+    semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive, semester.semesterid)
     run_query(sql, params, response)
     return {
         "success": True
     }
+
 
 @router.delete("/course/{course_id}", tags=['Course'])
 def delete_course(course_id: int, response: Response):
@@ -233,6 +247,7 @@ def delete_class(student_id: int, response: Response):
         "success": True
     }
 
+
 @router.delete("/school/{school_id}", tags=['School'])
 def delete_school(school_id: int, response: Response):
     sql = "DELETE FROM School WHERE id = ?"
@@ -242,14 +257,16 @@ def delete_school(school_id: int, response: Response):
         "success": True
     }
 
+
 @router.delete("/semester/{semester_id}", tags=['Semester'])
-def deleteSemester(semester_id: int, response: Response):
+def delete_semester(semester_id: int, response: Response):
     sql = "DELETE FROM Semester WHERE semesterID = ?"
     params = (semester_id,)
     run_query(sql, params, response)
     return {
         "success": True
     }
+
 
 @router.get("/user", tags=['User'])
 async def users_list():

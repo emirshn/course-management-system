@@ -53,16 +53,19 @@ class CourseSchedule(BaseModel):
     coursehour: int
     courseday: int
 
+
 class School(BaseModel):
     schoolid: int
     schoolname: str
 
+
 class Semester(BaseModel):
-    semesterid:int
+    semesterid: int
     semesterdescription: str
     startingdate: str
     endingdate: str
     isactive: int
+
 
 class Section(BaseModel):
     sectionid: int
