@@ -76,3 +76,11 @@ export interface ISchool {
     schoolid: int
     schoolname: string
 }
+
+export interface ISemester{
+    semesterid:int
+    semesterdescription: str
+    startingdate: str
+    endingdate: str
+    isactive: number
+}
