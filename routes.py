@@ -43,6 +43,12 @@ async def parents_list():
         "SELECT p.parentID, u.firstName, u.lastName from Parent p inner join [User] u on u.userID = p.parentID")
 
 
+@router.get("/teacher", tags=['Teacher'])
+async def teachers_list():
+    return fetch(
+        "SELECT t.teacherID, u.firstName, u.lastName from Teacher t inner join [User] u on u.userID = t.teacherID")
+
+
 @router.get("/users", tags=['User'])
 async def users_list():
     return fetch("SELECT * FROM [User]")
@@ -93,6 +99,13 @@ async def get_parent(parent_id: int):
     return fetch(
         "SELECT p.parentID, u.firstName, u.lastName FROM Parent p, [User] u WHERE parentID = ? and p.parentID=u.userID",
         (parent_id,))[0]
+
+
+@router.get("/teacher/{teacher_id}", tags=['Teacher'])
+async def get_teacher(teacher_id: int):
+    return fetch(
+        "SELECT t.teacherID, u.firstName, u.lastName FROM Teacher t, [User] u WHERE teacherID = ? and t.teacherID=u.userID",
+        (teacher_id,))[0]
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -197,6 +210,16 @@ def create_parent(parent: Parent, response: Response):
     }
 
 
+@router.post('/teacher', tags=['Teacher'])
+def create_teacher(teacher: Teacher, response: Response):
+    sql = "exec AddTeacher @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?"
+    params = (teacher.firstname, teacher.lastname, teacher.email, teacher.phone, teacher.address, teacher.birthdate)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
     sql = "UPDATE Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
@@ -280,6 +303,16 @@ def edit_parent(parent: Parent, response: Response):
     }
 
 
+@router.patch('/teacher/{teacher_id}', tags=['Teacher'])
+def edit_teacher(teacher: Teacher, response: Response):
+    sql = "UPDATE [User] SET firstname = ?, lastname = ? WHERE userID = ?"
+    params = (teacher.firstname, teacher.lastname, teacher.teacherid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
 @router.delete("/course/{course_id}", tags=['Course'])
 def delete_course(course_id: int, response: Response):
     sql = "DELETE FROM Course WHERE courseID = ?"
@@ -291,9 +324,19 @@ def delete_course(course_id: int, response: Response):
 
 
 @router.delete("/parent/{parent_id}", tags=['Parent'])
-def delete_course(parent_id: int, response: Response):
+def delete_parent(parent_id: int, response: Response):
     sql = "DELETE FROM Parent WHERE parentID = ?"
     params = (parent_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.delete("/teacher/{teacher_id}", tags=['Teacher'])
+def delete_teacher(teacher_id: int, response: Response):
+    sql = "DELETE FROM Teacher WHERE parentID = ?"
+    params = (teacher_id,)
     run_query(sql, params, response)
     return {
         "success": True

@@ -81,3 +81,13 @@ class Parent(BaseModel):
     email: str
     address: str
     birthdate: str
+
+
+class Teacher(BaseModel):
+    teacherid: int
+    firstname: str
+    lastname: str
+    phone: str
+    email: str
+    address: str
+    birthdate: str

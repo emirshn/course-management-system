@@ -78,6 +78,16 @@ export interface IParent {
     birthdate: string
 }
 
+export interface ITeacher {
+    teacherid: string
+    firstname: string
+    lastname: string
+    email: string
+    phone: string
+    address: string
+    birthdate: string
+}
+
 export interface ISchool {
     schoolid: int
     schoolname: string
