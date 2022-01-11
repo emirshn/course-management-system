@@ -70,6 +70,12 @@ export interface ICourseSchedule {
 
 export interface IParent {
     parentid: string
+    firstname: string
+    lastname: string
+    email: string
+    phone: string
+    address: string
+    birthdate: string
 }
 
 export interface ISchool {

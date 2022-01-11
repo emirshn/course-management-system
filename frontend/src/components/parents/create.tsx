@@ -30,75 +30,12 @@ export const ParentCreate: React.FC<IResourceComponentsProps> = () => {
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item name="courseid" initialValue="-1" hidden>
+                <Form.Item name="parentid" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Name"
-                    name="coursename"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    label="Grade"
-                    name="grade"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Select
-                        options={[
-                            {
-                                label: "9",
-                                value: 9,
-                            },
-                            {
-                                label: "10",
-                                value: 10,
-                            },
-                            {
-                                label: "11",
-                                value: 11,
-                            },
-                            {
-                                label: "12",
-                                value: 12,
-                            },
-                        ]}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Active"
-                    name="isactive"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Radio.Group
-                        options={[
-                            {
-                                label: "True",
-                                value: 1,
-                            },
-                            {
-                                label: "False",
-                                value: 0,
-                            },
-                        ]}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Short Name"
-                    name="shortname"
+                    label="First Name"
+                    name="firstname"
                     rules={[
                         {
                             required: true,
@@ -106,6 +43,62 @@ export const ParentCreate: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Last Name"
+                    name="lastname"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Phone"
+                    name="phone"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Address"
+                    name="address"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Birth Date"
+                    name="birthdate"
+
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input placeholder="YYYY-MM-DD" />
                 </Form.Item>
             </Form>
         </Create>

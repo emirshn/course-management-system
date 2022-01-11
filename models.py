@@ -71,3 +71,13 @@ class Section(BaseModel):
     sectionid: int
     name: str
     shortname: str
+
+
+class Parent(BaseModel):
+    parentid: int
+    firstname: str
+    lastname: str
+    phone: str
+    email: str
+    address: str
+    birthdate: str

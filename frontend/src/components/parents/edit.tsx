@@ -24,7 +24,7 @@ export const ParentEdit: React.FC<IResourceComponentsProps> = () => {
             <Form {...formProps} layout="vertical">
                 <Form.Item
                     label="ID"
-                    name="courseid"
+                    name="parentid"
                     rules={[
                         {
                             required: true,
@@ -34,8 +34,8 @@ export const ParentEdit: React.FC<IResourceComponentsProps> = () => {
                     <Input disabled/>
                 </Form.Item>
                 <Form.Item
-                    label="Name"
-                    name="coursename"
+                    label="First Name"
+                    name="firstname"
                     rules={[
                         {
                             required: true,
@@ -45,60 +45,8 @@ export const ParentEdit: React.FC<IResourceComponentsProps> = () => {
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Grade"
-                    name="grade"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Select
-                        options={[
-                            {
-                                label: "9",
-                                value: 9,
-                            },
-                            {
-                                label: "10",
-                                value: 10,
-                            },
-                            {
-                                label: "11",
-                                value: 11,
-                            },
-                            {
-                                label: "12",
-                                value: 12,
-                            },
-                        ]}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Active"
-                    name="isactive"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Radio.Group
-                        options={[
-                            {
-                                label: "True",
-                                value: 1,
-                            },
-                            {
-                                label: "False",
-                                value: 0,
-                            },
-                        ]}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Short Name"
-                    name="shortname"
+                    label="Last Name"
+                    name="lastname"
                     rules={[
                         {
                             required: true,
@@ -107,6 +55,7 @@ export const ParentEdit: React.FC<IResourceComponentsProps> = () => {
                 >
                     <Input/>
                 </Form.Item>
+
             </Form>
         </Edit>
     );

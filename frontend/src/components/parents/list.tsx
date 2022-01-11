@@ -16,20 +16,6 @@ export const ParentList: React.FC<IResourceComponentsProps<GetListResponse<IPare
         },
     });
 
-    const userIds =
-        tableProps?.dataSource?.map((item) => item.parentid) ?? [];
-    const {data: usersData, isLoading} = useMany<IUser>({
-        resource: "user",
-        ids: userIds,
-        queryOptions: {
-            enabled: userIds.length > 0,
-        },
-    });
-
-    const {selectProps: userSelectProps} = useSelect<IUser>({
-        resource: "user",
-    });
-
     return (
         <List>
             <Table {...tableProps} rowKey="parentid">
@@ -42,41 +28,21 @@ export const ParentList: React.FC<IResourceComponentsProps<GetListResponse<IPare
                     sorter
                 />
                 <Table.Column
-                    dataIndex="name"
-                    key="name"
-                    title="Name"
+                    dataIndex="firstname"
+                    key="firstname"
+                    title="First Name"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("name", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("firstname", sorter)}
                     sorter
                 />
                 <Table.Column
-          dataIndex={["parent", "parentid"]}
-          title="Name"
-          render={(value) => {
-            if (isLoading) {
-              return <TextField value="Loading..." />;
-            }
-
-            return (
-              <TextField
-                value={
-                  usersData?.data.find((item) => item.userid === value)?.firstname
-                }
-              />
-            );
-          }}
-          filterDropdown={(props) => (
-            <FilterDropdown {...props}>
-              <Select
-                style={{ minWidth: 200 }}
-                mode="multiple"
-                placeholder="Select Category"
-                {...userSelectProps}
-              />
-            </FilterDropdown>
-          )}
-        />
-
+                    dataIndex="lastname"
+                    key="lastname"
+                    title="Last Name"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("lastname", sorter)}
+                    sorter
+                />
                 <Table.Column<IParent>
                     title="Actions"
                     dataIndex="actions"

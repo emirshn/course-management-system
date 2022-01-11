@@ -19,16 +19,12 @@ export const ParentShow: React.FC<IResourceComponentsProps> = () => {
 
     return (
         <Show isLoading={isLoading}>
-            <Title level={5}>Course ID</Title>
-            <Text>{record?.courseid}</Text>
-            <Title level={5}>Name</Title>
-            <Text>{record?.coursename}</Text>
-            <Title level={5}>Short Name</Title>
-            <Text>{record?.shortname}</Text>
-            <Title level={5}>Grade</Title>
-            <Text>{record?.grade}</Text>
-            <Title level={5}>Is Active</Title>
-            <Text>{record?.isactive ? "True" : "False"}</Text>
+            <Title level={5}>User ID</Title>
+            <Text>{record?.parentid}</Text>
+            <Title level={5}>First Name</Title>
+            <Text>{record?.firstname}</Text>
+            <Title level={5}>Last Name</Title>
+            <Text>{record?.lastname}</Text>
         </Show>
     );
 };

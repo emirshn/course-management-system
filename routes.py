@@ -39,7 +39,8 @@ async def section_list():
 
 @router.get("/parent", tags=['Parent'])
 async def parents_list():
-    return fetch("SELECT * FROM Parent")
+    return fetch(
+        "SELECT p.parentID, u.firstName, u.lastName from Parent p inner join [User] u on u.userID = p.parentID")
 
 
 @router.get("/users", tags=['User'])
@@ -55,6 +56,16 @@ async def school_list():
 @router.get('/semester', tags=['Semester'])
 async def get_semesters():
     return fetch('SELECT * FROM Semester')
+
+
+@router.get('/schedule', tags=['CourseSchedule'])
+async def get_class():
+    # return fetch('''
+    #     select distinct class.className
+    #     from Class, Course_Schedule schedule
+    #     where class.classID = schedule.classID
+    # ''');
+    return fetch('select distinct Course_Schedule.classID from Course_Schedule')
 
 
 @router.get("/course/{course_id}", tags=['Course'])
@@ -79,7 +90,9 @@ async def get_student(student_id: int):
 
 @router.get("/parent/{parent_id}", tags=['Parent'])
 async def get_parent(parent_id: int):
-    return fetch("SELECT * FROM Parent WHERE parentID = ?", (parent_id,))[0]
+    return fetch(
+        "SELECT p.parentID, u.firstName, u.lastName FROM Parent p, [User] u WHERE parentID = ? and p.parentID=u.userID",
+        (parent_id,))[0]
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -90,6 +103,14 @@ async def get_school(school_id: int):
 @router.get("/semester/{semester_id}", tags=['Semester'])
 async def get_semester(semester_id: int):
     return fetch("SELECT * FROM Semester WHERE semesterID = ?", (semester_id,))[0]
+
+
+@router.get('/schedule/{classId}', tags=['CourseSchedule'])
+def get_schedule(classId: int, response: Response):
+    sql = 'select * from Course_Schedule where classID = ?'
+    params = (classId,)
+    run_query(sql, params, response)
+    return {"success": True}
 
 
 @router.post("/login", tags=['User'])
@@ -156,6 +177,26 @@ def create_semester(semester: Semester, response: Response):
     }
 
 
+@router.post('/schedule', tags=['CourseSchedule'])
+def create_schedule(schedule: CourseSchedule, response: Response):
+    sql = "insert into Course_Schedule(classID, courseID, courseDay, courseHour) values(?,?,?,?)"
+    params = (schedule.classid, schedule.courseid, schedule.courseday, schedule.coursehour)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.post('/parent', tags=['Parent'])
+def create_parent(parent: Parent, response: Response):
+    sql = "exec AddParent @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?"
+    params = (parent.firstname, parent.lastname, parent.email, parent.phone, parent.address, parent.birthdate)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
     sql = "UPDATE Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
@@ -211,7 +252,28 @@ def update_school(school: School, response: Response):
 def update_semester(semester: Semester, response: Response):
     sql = "UPDATE Semester SET semesterDescription = ?, startingDate = ?, endingDate = ?, isActive = ? WHERE semesterID = ?"
     params = (
-    semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive, semester.semesterid)
+        semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive,
+        semester.semesterid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.patch('/schedule/{schedule_id}', tags=['CourseSchedule'])
+def edit_schedule(courseSchedule: CourseSchedule, response: Response):
+    sql = "UPDATE Course_Schedule SET courseID = ?, classID = ?, courseDay = ?, courseHour = ?"
+    params = (courseSchedule.courseid, courseSchedule.classid, courseSchedule.courseday, courseSchedule.coursehour)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.patch('/parent/{parent_id}', tags=['Parent'])
+def edit_parent(parent: Parent, response: Response):
+    sql = "UPDATE [User] SET firstname = ?, lastname = ? WHERE userID = ?"
+    params = (parent.firstname, parent.lastname, parent.parentid)
     run_query(sql, params, response)
     return {
         "success": True
@@ -222,6 +284,16 @@ def update_semester(semester: Semester, response: Response):
 def delete_course(course_id: int, response: Response):
     sql = "DELETE FROM Course WHERE courseID = ?"
     params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.delete("/parent/{parent_id}", tags=['Parent'])
+def delete_course(parent_id: int, response: Response):
+    sql = "DELETE FROM Parent WHERE parentID = ?"
+    params = (parent_id,)
     run_query(sql, params, response)
     return {
         "success": True
@@ -314,44 +386,6 @@ def delete_user(user_id: int, response: Response):
         response.status_code = 400
         return {"error": str(e)}
     return {"item_id": user_id}
-
-
-@router.get('/schedule', tags=['CourseSchedule'])
-async def get_class():
-    # return fetch('''
-    #     select distinct class.className
-    #     from Class, Course_Schedule schedule
-    #     where class.classID = schedule.classID
-    # ''');
-    return fetch('select distinct Course_Schedule.classID from Course_Schedule')
-
-
-@router.get('/schedule/{classId}', tags=['CourseSchedule'])
-def get_schedule(classId: int, response: Response):
-    sql = 'select * from Course_Schedule where classID = ?'
-    params = (classId,)
-    run_query(sql, params, response)
-    return {"success": True}
-
-
-@router.post('/schedule', tags=['CourseSchedule'])
-def create_schedule(schedule: CourseSchedule, response: Response):
-    sql = "insert into Course_Schedule(classID, courseID, courseDay, courseHour) values(?,?,?,?)"
-    params = (schedule.classid, schedule.courseid, schedule.courseday, schedule.coursehour)
-    run_query(sql, params, response)
-    return {
-        "success": True
-    }
-
-
-@router.patch('/schedule', tags=['CourseSchedule'])
-def edit_schedule(courseSchedule: CourseSchedule, response: Response):
-    sql = "UPDATE Course_Schedule SET courseID = ?, classID = ?, courseDay = ?, courseHour = ?"
-    params = (courseSchedule.courseid, courseSchedule.classid, courseSchedule.courseday, courseSchedule.coursehour)
-    run_query(sql, params, response)
-    return {
-        "success": True
-    }
 
 
 @router.delete('/schedule/{course_id}', tags=['CourseSchedule'])
