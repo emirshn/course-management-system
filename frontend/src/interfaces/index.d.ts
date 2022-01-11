@@ -84,3 +84,9 @@ export interface ISemester{
     endingdate: str
     isactive: number
 }
+
+export interface ISection{
+    sectionid:int
+    name: str
+    shortname: str
+}

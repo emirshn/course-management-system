@@ -35,6 +35,9 @@ async def classes_list():
 async def students_list():
     return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
+@router.get("/section", tags=['Section'])
+async def section_list():
+    return fetch("SELECT * FROM [Section]")
 
 @router.get("/parent", tags=['Parent'])
 async def parents_list():
@@ -62,6 +65,9 @@ async def get_course(course_id: int):
 async def get_class(class_id: int):
     return fetch("SELECT * FROM Class WHERE classID = ?", (class_id,))[0]
 
+@router.get("/section/{section_id}", tags=['Section'])
+async def get_section(section_id: int):
+    return fetch("SELECT * FROM Section WHERE id = ?", (section_id,))[0]
 
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
@@ -145,6 +151,15 @@ def createSemester(semester: Semester, response: Response):
 def update_course(course: Course, response: Response):
     sql = "UPDATE Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
     params = (course.coursename, course.isactive, course.grade, course.shortname, course.courseid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.patch("/section/{section_id}", tags=['Section'])
+def update_section(section: Section, response: Response):
+    sql = "UPDATE Section SET id = ?, name = ?, shortName = ?"
+    params = (section.sectionid, section.name, section.shortname)
     run_query(sql, params, response)
     return {
         "success": True

@@ -64,3 +64,7 @@ class Semester(BaseModel):
     endingdate: str
     isactive: int
 
+class Section(BaseModel):
+    sectionid: int
+    name: str
+    shortname: str
