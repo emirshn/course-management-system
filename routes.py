@@ -64,6 +64,11 @@ async def get_semesters():
     return fetch('SELECT * FROM Semester')
 
 
+@router.get('/course-teacher', tags=['Course Teacher'])
+async def get_course_teachers():
+    return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
+
+
 @router.get('/schedule', tags=['CourseSchedule'])
 async def get_class():
     # return fetch('''
@@ -106,6 +111,11 @@ async def get_teacher(teacher_id: int):
     return fetch(
         "SELECT t.teacherID, u.firstName, u.lastName FROM Teacher t, [User] u WHERE teacherID = ? and t.teacherID=u.userID",
         (teacher_id,))[0]
+
+
+@router.get('/course-teacher/{course_id}', tags=['Course Teacher'])
+async def get_course_teacher(course_id: int):
+    return fetch('SELECT * FROM dbo.getTeachersCoursePlan t WHERE courseID = ? ORDER BY courseDay', (course_id,))
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -182,7 +192,6 @@ def create_school(school: School, response: Response):
 @router.post("/semester", tags=['Semester'])
 def create_semester(semester: Semester, response: Response):
     sql = "exec AddSemester @semesterDescription = ?, @startingDate = ?, @endingDate = ?, @isActive = ?"
-    print(semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive)
     params = (semester.semesterdescription, semester.startingdate, semester.endingdate, semester.isactive)
     run_query(sql, params, response)
     return {
@@ -214,6 +223,16 @@ def create_parent(parent: Parent, response: Response):
 def create_teacher(teacher: Teacher, response: Response):
     sql = "exec AddTeacher @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?"
     params = (teacher.firstname, teacher.lastname, teacher.email, teacher.phone, teacher.address, teacher.birthdate)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.post('/course-teacher', tags=['Course Teacher'])
+def assign_course(course_teacher: CourseTeacher, response: Response):
+    sql = "exec AssignCourseTeacher @teacherID = ?, @courseID = ?"
+    params = (course_teacher.teacherid, course_teacher.courseid)
     run_query(sql, params, response)
     return {
         "success": True
@@ -434,6 +453,16 @@ def delete_user(user_id: int, response: Response):
 @router.delete('/schedule/{course_id}', tags=['CourseSchedule'])
 def delete_schedule(course_id: int, response: Response):
     sql = "delete from Course_Schedule where courseID = ?"
+    params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.delete('/course-teacher/{course_id}', tags=['Course Teacher'])
+def delete_schedule(course_id: int, response: Response):
+    sql = "delete from Course_Teacher where courseID = ?"
     params = (course_id,)
     run_query(sql, params, response)
     return {

@@ -106,3 +106,11 @@ export interface ISection{
     name: str
     shortname: str
 }
+
+export interface ICourseTeacher{
+    teacherid: string
+    courseid: string
+    coursename: string
+    grade: int
+    teachername: string
+}

@@ -18,6 +18,7 @@ import {ScheduleCreate, ScheduleEdit, ScheduleList, ScheduleShow} from "@compone
 import {SemesterCreate, SemesterEdit, SemesterList, SemesterShow} from "@components/semester"
 import {ParentCreate, ParentEdit, ParentList, ParentShow} from "@components/parents"
 import {TeacherCreate, TeacherEdit, TeacherList, TeacherShow} from "@components/teachers"
+import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
 import {Login} from "src/pages/login";
 import "src/pages/login/styles.css";
 
@@ -28,13 +29,12 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
             formdata.append("email", email);
             formdata.append("password", password);
 
-            const requestOptions = {
+            const response = await fetch("http://localhost:8000/login?email=" + email + "&password=" + password, {
                 method: 'POST',
                 body: formdata,
                 redirect: 'follow'
-            };
+            })
 
-            const response = await fetch("http://localhost:8000/login?email=" + email + "&password=" + password, requestOptions)
             const data = await response.text();
 
             if (data === "true") {
@@ -118,6 +118,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     create: TeacherCreate,
                     edit: TeacherEdit,
                     show: TeacherShow,
+                },
+                {
+                    name: "course-teacher",
+                    list: CourseTeacherList,
+                    create: CourseTeacherCreate,
+                    edit: CourseTeacherEdit,
+                    show: CourseTeacherShow,
                 },
             ]}
         >

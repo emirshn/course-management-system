@@ -91,3 +91,8 @@ class Teacher(BaseModel):
     email: str
     address: str
     birthdate: str
+
+
+class CourseTeacher(BaseModel):
+    courseid: int
+    teacherid: int
