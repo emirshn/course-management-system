@@ -15,7 +15,7 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {ITeacher, ICourseTeacher} from "src/interfaces";
+import {ITeacher, ICourse, ICourseTeacher} from "src/interfaces";
 import {number} from "prop-types";
 
 export const CourseTeacherCreate: React.FC<IResourceComponentsProps> = () => {
@@ -23,15 +23,29 @@ export const CourseTeacherCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {formProps, saveButtonProps} = useForm<ICourseTeacher>();
 
-    const { selectProps: teacherSelectProps } = useSelect<ITeacher>({
-    resource: "teacher",
-  });
+    const {selectProps: teacherSelectProps} = useSelect<ITeacher>({
+        resource: "teacher",
+        optionLabel: "firstname",
+        optionValue: "teacherid",
+    });
+
+    const {selectProps: courseSelectProps} = useSelect<ICourse>({
+        resource: "course",
+        optionLabel: "coursename",
+        optionValue: "courseid",
+        sort: [
+            {
+                field: "grade",
+                order: "asc",
+            },
+        ],
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
                 <Form.Item
-                    label="Teacher ID"
+                    label="Teacher"
                     name="teacherid"
                     rules={[
                         {
@@ -39,10 +53,10 @@ export const CourseTeacherCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
+                    <Select {...teacherSelectProps} />
                 </Form.Item>
                 <Form.Item
-                    label="Course ID"
+                    label="Course"
                     name="courseid"
                     rules={[
                         {
@@ -50,19 +64,8 @@ export const CourseTeacherCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
+                    <Select {...courseSelectProps} />
                 </Form.Item>
-                 <Form.Item
-          label="Teacher"
-          name={["teacher", "teacherid"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select {...teacherSelectProps} />
-        </Form.Item>
             </Form>
         </Create>
     );
