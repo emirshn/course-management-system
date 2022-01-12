@@ -58,6 +58,10 @@ async def users_list():
 async def school_list():
     return fetch("SELECT * FROM [School]")
 
+@router.get("/exam-results", tags=['Exam Result'])
+async def results_list():
+    return fetch("SELECT * FROM Exam_Result")
+
 
 @router.get('/semester', tags=['Semester'])
 async def get_semesters():
@@ -100,6 +104,11 @@ async def get_section(section_id: int):
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
     return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
+
+@router.get("/exam-result/{result_id}", tags=['Exam Result'])
+async def get_result(result_id: int):
+    return fetch("SELECT * FROM Exam_Result WHERE resultID = ?", (result_id,))[0]
+
 
 
 @router.get("/parent/{parent_id}", tags=['Parent'])
@@ -196,6 +205,15 @@ def create_school(school: School, response: Response):
         "success": True
     }
 
+@router.post("/exam-result", tags=['Exam Result'])
+def create_result(result: ExamResult, response: Response):
+    sql = "INSERT INTO Exam_Result (StudentID, CourseID, grade, date) VALUES (?,?,?,?) "
+    params = (result.studentid, result.courseid, result.grade, result.date)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
 
 @router.post("/semester", tags=['Semester'])
 def create_semester(semester: Semester, response: Response):
@@ -211,6 +229,15 @@ def create_semester(semester: Semester, response: Response):
 def create_schedule(schedule: CourseSchedule, response: Response):
     sql = "insert into Course_Schedule(classID, courseID, courseDay, courseHour) values(?,?,?,?)"
     params = (schedule.classid, schedule.courseid, schedule.courseday, schedule.coursehour)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.post('/section', tags=['Section'])
+def create_section(section: Section, response: Response):
+    sql = "insert into Section(id, name, shortName) values(?,?,?)"
+    params = (section.sectionid, section.name, section.shortname)
     run_query(sql, params, response)
     return {
         "success": True
@@ -305,6 +332,15 @@ def update_school(school: School, response: Response):
         "success": True
     }
 
+@router.patch("/exam-result/{result_id}", tags=['School'])
+def update_result(result: ExamResult, response: Response):
+    sql = "UPDATE Exam_Result SET studentID = ?, courseID = ?, grade = ?, date = ? WHERE resultID = ?"
+    params = (result.studentid, result.courseid, result.grade, result.date, result.resultid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
 
 @router.patch("/semester/{semester_id}", tags=['Semester'])
 def update_semester(semester: Semester, response: Response):
@@ -367,6 +403,23 @@ def delete_parent(parent_id: int, response: Response):
         "success": True
     }
 
+@router.delete("/section/{section_id}", tags=['Section'])
+def delete_section(section_id: int, response: Response):
+    sql = "DELETE FROM Section WHERE id = ?"
+    params = (section_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.delete("/exam-result/{result_id}", tags=['Exam Result'])
+def delete_section(result_id: int, response: Response):
+    sql = "DELETE FROM Exam_Result WHERE resultID = ?"
+    params = (result_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.delete("/teacher/{teacher_id}", tags=['Teacher'])
 def delete_teacher(teacher_id: int, response: Response):
@@ -389,7 +442,7 @@ def delete_class(class_id: int, response: Response):
 
 
 @router.delete("/student/{student_id}", tags=['Student'])
-def delete_class(student_id: int, response: Response):
+def delete_student(student_id: int, response: Response):
     sql = "DELETE FROM Student WHERE studentID = ?"
     params = (student_id,)
     run_query(sql, params, response)

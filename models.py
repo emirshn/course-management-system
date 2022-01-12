@@ -100,3 +100,10 @@ class CourseTeacher(BaseModel):
 class StudentParent(BaseModel):
     studentid: int
     parentid: int
+
+class ExamResult(BaseModel):
+    resultid: int
+    studentid: int
+    courseid: int
+    grade: int
+    date: str

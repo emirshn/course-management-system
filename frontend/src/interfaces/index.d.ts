@@ -114,3 +114,11 @@ export interface ICourseTeacher{
     grade: int
     teachername: string
 }
+
+export interface IExamResult{
+    resultid: int
+    studentid: int
+    courseid: int
+    grade: int
+    date: string
+}

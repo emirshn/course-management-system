@@ -18,6 +18,8 @@ import {ScheduleCreate, ScheduleEdit, ScheduleList, ScheduleShow} from "@compone
 import {SemesterCreate, SemesterEdit, SemesterList, SemesterShow} from "@components/semester"
 import {ParentCreate, ParentEdit, ParentList, ParentShow} from "@components/parents"
 import {TeacherCreate, TeacherEdit, TeacherList, TeacherShow} from "@components/teachers"
+import {ExamResultCreate, ExamResultEdit, ExamResultList, ExamResultShow} from "@components/exam-results"
+import {SectionCreate, SectionEdit, SectionList, SectionShow} from "@components/sections"
 import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
 import {Login} from "src/pages/login";
 import "src/pages/login/styles.css";
@@ -126,6 +128,21 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     edit: CourseTeacherEdit,
                     show: CourseTeacherShow,
                 },
+                {
+                    name: "exam-result",
+                    list: ExamResultList,
+                    create: ExamResultCreate,
+                    edit: ExamResultEdit,
+                    show: ExamResultShow,
+                },
+                {
+                    name: "section",
+                    list: SectionList,
+                    create: SectionCreate,
+                    edit: SectionEdit,
+                    show: SectionShow,
+                },
+
             ]}
         >
             <Component {...pageProps} />
