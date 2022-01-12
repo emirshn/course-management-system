@@ -68,6 +68,9 @@ async def get_semesters():
 async def get_course_teachers():
     return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
 
+@router.get('/student-parent', tags=['Student Parent'])
+async def get_student_parents():
+    return fetch('SELECT * FROM Student_Parent')
 
 @router.get('/schedule', tags=['CourseSchedule'])
 async def get_class():
@@ -116,6 +119,11 @@ async def get_teacher(teacher_id: int):
 @router.get('/course-teacher/{course_id}', tags=['Course Teacher'])
 async def get_course_teacher(course_id: int):
     return fetch('SELECT * FROM dbo.getTeachersCoursePlan t WHERE courseID = ? ORDER BY courseDay', (course_id,))
+
+
+@router.get('/student-parent/{student_id}', tags=['Student Parent'])
+async def get_student_parent(student_id: int):
+    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?', (student_id,))
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -238,6 +246,14 @@ def assign_course(course_teacher: CourseTeacher, response: Response):
         "success": True
     }
 
+@router.post('/student-parent', tags=['Student Parent'])
+def assign_parent(student_parent: StudentParent, response: Response):
+    sql = "insert into Student_Parent(studentID, parentID) values(?,?)"
+    params = (student_parent.studentid, student_parent.parentid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):

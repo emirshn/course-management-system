@@ -96,3 +96,7 @@ class Teacher(BaseModel):
 class CourseTeacher(BaseModel):
     courseid: int
     teacherid: int
+
+class StudentParent(BaseModel):
+    studentid: int
+    parentid: int
