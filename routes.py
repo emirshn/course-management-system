@@ -58,7 +58,7 @@ async def users_list():
 async def school_list():
     return fetch("SELECT * FROM [School]")
 
-@router.get("/exam-results", tags=['Exam Result'])
+@router.get("/exam-result", tags=['Exam Result'])
 async def results_list():
     return fetch("SELECT * FROM Exam_Result")
 
