@@ -122,3 +122,10 @@ export interface IExamResult{
     grade: int
     date: string
 }
+
+export interface IStudentParent{
+    studentid: string
+    parentid: string
+    studentname: string
+    parentname: string
+}

@@ -21,6 +21,7 @@ import {TeacherCreate, TeacherEdit, TeacherList, TeacherShow} from "@components/
 import {ExamResultCreate, ExamResultEdit, ExamResultList, ExamResultShow} from "@components/exam-results"
 import {SectionCreate, SectionEdit, SectionList, SectionShow} from "@components/sections"
 import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
+import {StudentParentCreate, StudentParentEdit, StudentParentList, StudentParentShow} from "@components/student-parents"
 import {Login} from "src/pages/login";
 import "src/pages/login/styles.css";
 
