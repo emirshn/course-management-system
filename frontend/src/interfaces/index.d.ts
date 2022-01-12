@@ -114,3 +114,10 @@ export interface ICourseTeacher{
     grade: int
     teachername: string
 }
+
+export interface IStudentParent{
+    studentid: string
+    parentid: string
+    studentname: string
+    parentname: string
+}

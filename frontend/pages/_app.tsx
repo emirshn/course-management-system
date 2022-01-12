@@ -19,6 +19,7 @@ import {SemesterCreate, SemesterEdit, SemesterList, SemesterShow} from "@compone
 import {ParentCreate, ParentEdit, ParentList, ParentShow} from "@components/parents"
 import {TeacherCreate, TeacherEdit, TeacherList, TeacherShow} from "@components/teachers"
 import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
+import {StudentParentCreate, StudentParentEdit, StudentParentList, StudentParentShow} from "@components/student-parents"
 import {Login} from "src/pages/login";
 import "src/pages/login/styles.css";
 
