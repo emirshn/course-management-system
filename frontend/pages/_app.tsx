@@ -1,8 +1,7 @@
 import React from "react";
 import {AppProps} from "next/app";
-
 import {AuthProvider, Refine} from "@pankod/refine";
-import routerProvider from "@pankod/refine-nextjs-router";
+import routerProvider, {Link} from "@pankod/refine-nextjs-router";
 
 import "@pankod/refine/dist/styles.min.css";
 import dataProvider from "@pankod/refine-simple-rest";
@@ -66,6 +65,33 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
             LoginPage={Login}
             routerProvider={routerProvider}
             dataProvider={dataProvider(API_URL)}
+             Title={({ collapsed }) => (
+                <Link href="/">
+                    {collapsed ? (
+                        <img
+                            src="/logo.svg"
+                            alt="CMS"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: "12px 24px",
+                            }}
+                        />
+                    ) : (
+                        <img
+                            src="/logo.svg"
+                            alt="CMS"
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "100px",
+                                padding: "12px 24px",
+                            }}
+                        />
+                    )}
+                </Link>
+            )}
             resources={[
                 {
                     name: "course",
