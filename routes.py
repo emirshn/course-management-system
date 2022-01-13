@@ -107,7 +107,7 @@ async def get_section(section_id: int):
 
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
-    return fetch("SELECT * FROM Student inner join Parent WHERE studentID = ?", (student_id,))[0]
+    return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
 
 
 @router.get("/exam-result/{result_id}", tags=['Exam Result'])
