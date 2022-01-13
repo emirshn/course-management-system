@@ -22,7 +22,7 @@ export const SchoolList: React.FC<IResourceComponentsProps<GetListResponse<IScho
                 <Table.Column
                     dataIndex="schoolid"
                     key="schoolid"
-                    title="ID"
+                    title="School ID"
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("schoolid", sorter)}
                     sorter
@@ -34,6 +34,17 @@ export const SchoolList: React.FC<IResourceComponentsProps<GetListResponse<IScho
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("schoolname", sorter)}
                     sorter
+                />
+                <Table.Column<ISchool>
+                    title="Actions"
+                    dataIndex="actions"
+                    render={(_, record) => (
+                        <Space>
+                            <EditButton hideText size="small" recordItemId={record.schoolid}/>
+                            <ShowButton hideText size="small" recordItemId={record.schoolid}/>
+                            <DeleteButton hideText size="small" recordItemId={record.schoolid}/>
+                        </Space>
+                    )}
                 />
             </Table>
         </List>

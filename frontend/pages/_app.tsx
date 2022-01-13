@@ -20,6 +20,7 @@ import {ParentCreate, ParentEdit, ParentList, ParentShow} from "@components/pare
 import {TeacherCreate, TeacherEdit, TeacherList, TeacherShow} from "@components/teachers"
 import {ExamResultCreate, ExamResultEdit, ExamResultList, ExamResultShow} from "@components/exam-results"
 import {SectionCreate, SectionEdit, SectionList, SectionShow} from "@components/sections"
+import {SchoolCreate, SchoolEdit, SchoolList, SchoolShow} from "@components/schools"
 import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
 import {StudentParentCreate, StudentParentEdit, StudentParentList, StudentParentShow} from "@components/student-parents"
 import {Login} from "src/pages/login";
@@ -142,6 +143,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     create: SectionCreate,
                     edit: SectionEdit,
                     show: SectionShow,
+                },
+                {
+                    name: "school",
+                    list: SchoolList,
+                    create: SchoolCreate,
+                    edit: SchoolEdit,
+                    show: SchoolShow,
                 },
 
             ]}

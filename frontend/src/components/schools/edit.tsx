@@ -37,8 +37,6 @@ export const SchoolEdit: React.FC<IResourceComponentsProps> = () => {
                             >
                                 <Input/>
                             </Form.Item>
-
-
                         </Form>
         </Edit>
     );

@@ -90,7 +90,7 @@ export interface ITeacher {
 
 export interface ISchool {
     schoolid: int
-    schoolname: string
+    schoolname: str
 }
 
 export interface ISemester{
@@ -120,7 +120,7 @@ export interface IExamResult{
     studentid: int
     courseid: int
     grade: int
-    date: string
+    date: str
 }
 
 export interface IStudentParent{

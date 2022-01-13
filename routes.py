@@ -54,9 +54,9 @@ async def users_list():
     return fetch("SELECT * FROM [User]")
 
 
-@router.get("/schools", tags=['School'])
+@router.get("/school", tags=['School'])
 async def school_list():
-    return fetch("SELECT * FROM [School]")
+    return fetch("SELECT * FROM School")
 
 @router.get("/exam-result", tags=['Exam Result'])
 async def results_list():
@@ -325,14 +325,14 @@ def update_student(student: Student, response: Response):
 
 @router.patch("/school/{school_id}", tags=['School'])
 def update_school(school: School, response: Response):
-    sql = "UPDATE School SET name = ?"
-    params = school.schoolname
+    sql = "UPDATE School SET name = ? WHERE id = ?"
+    params = (school.schoolname, school.schoolid)
     run_query(sql, params, response)
     return {
         "success": True
     }
 
-@router.patch("/exam-result/{result_id}", tags=['School'])
+@router.patch("/exam-result/{result_id}", tags=['Result'])
 def update_result(result: ExamResult, response: Response):
     sql = "UPDATE Exam_Result SET studentID = ?, courseID = ?, grade = ?, date = ? WHERE resultID = ?"
     params = (result.studentid, result.courseid, result.grade, result.date, result.resultid)
