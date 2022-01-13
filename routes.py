@@ -24,12 +24,13 @@ async def courses_list():
 
 @router.get("/class", tags=['Class'])
 async def classes_list():
-    return fetch("SELECT * FROM Class")
+    return fetch("SELECT *, c.className + ' ' + s.name displayname FROM Class c, Section s WHERE c.section = s.id")
 
 
 @router.get("/student", tags=['Student'])
 async def students_list():
-    return fetch("SELECT u.firstName + ' ' + u.lastName fullname, u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
+    return fetch(
+        "SELECT u.firstName + ' ' + u.lastName fullname, u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
 
 @router.get("/student-parent", tags=['Student Parent'])
@@ -92,7 +93,8 @@ async def get_class():
 
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
-    return fetch("SELECT *, coursename + ' ' + CAST(grade as nvarchar) displayname FROM Course WHERE courseID = ?", (course_id,))[0]
+    return fetch("SELECT *, coursename + ' ' + CAST(grade as nvarchar) displayname FROM Course WHERE courseID = ?",
+                 (course_id,))[0]
 
 
 @router.get("/class/{class_id}", tags=['Class'])
@@ -137,7 +139,9 @@ async def get_course_teacher(course_id: int):
 @router.get('/student-parent/{primary_key}', tags=['Student Parent'])
 async def get_student_parent(primary_key: str):
     student_id, parent_id = primary_key.split('-')
-    return fetch("SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID and sp.studentID = ? and sp.parentID = ?", (student_id, parent_id))[0]
+    return fetch(
+        "SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID and sp.studentID = ? and sp.parentID = ?",
+        (student_id, parent_id))[0]
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -191,7 +195,7 @@ def create_class(clas: Class, response: Response):
 
 @router.post("/student", tags=['Student'])
 def create_student(student: Student, response: Response):
-    sql = "exec AddStudent @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?, @school = ?, @grade = ?, @section = ?"
+    sql = "exec AddStudent @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?, @school = ?, @grade = ?, @classID = ?"
     params = (
         student.firstname, student.lastname, student.email, student.phonenumber, student.address, student.birthdate,
         student.school, student.grade, student.section)
