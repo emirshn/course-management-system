@@ -128,4 +128,9 @@ export interface IStudentParent{
     parentid: string
     studentname: string
     parentname: string
+    pk: string
+}
+
+export interface IGrade{
+    grade: string
 }
