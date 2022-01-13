@@ -60,7 +60,7 @@ export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Student"
+                    label="Student ID"
                     name="studentid"
                     rules={[
                         {
