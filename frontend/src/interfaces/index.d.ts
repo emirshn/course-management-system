@@ -63,10 +63,10 @@ export interface IUser {
 }
 
 export interface ICourseSchedule {
-    classid: int
-    courseid: int
-    coursehour: int
-    courseday: int
+    classid: number
+    courseid: number
+    coursehour: number
+    courseday: number
 }
 
 export interface IParent {
@@ -90,41 +90,41 @@ export interface ITeacher {
 }
 
 export interface ISchool {
-    id: int
-    name: str
+    id: string
+    name: string
 }
 
-export interface ISemester{
-    semesterid:int
-    semesterdescription: str
-    startingdate: str
-    endingdate: str
+export interface ISemester {
+    semesterid: string
+    semesterdescription: string
+    startingdate: string
+    endingdate: string
     isactive: number
 }
 
-export interface ISection{
-    id:int
-    name: str
-    shortname: str
+export interface ISection {
+    id: string
+    name: string
+    shortname: string
 }
 
-export interface ICourseTeacher{
+export interface ICourseTeacher {
     teacherid: string
     courseid: string
     coursename: string
-    grade: int
+    grade: number
     teachername: string
 }
 
-export interface IExamResult{
-    resultid: int
-    studentid: int
-    courseid: int
-    grade: int
-    date: str
+export interface IExamResult {
+    resultid: string
+    studentid: number
+    courseid: number
+    grade: number
+    date: string
 }
 
-export interface IStudentParent{
+export interface IStudentParent {
     studentid: string
     parentid: string
     studentname: string
@@ -132,6 +132,6 @@ export interface IStudentParent{
     pk: string
 }
 
-export interface IGrade{
+export interface IGrade {
     grade: string
 }
