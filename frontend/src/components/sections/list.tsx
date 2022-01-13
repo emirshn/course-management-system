@@ -20,11 +20,11 @@ export const SectionList: React.FC<IResourceComponentsProps<GetListResponse<ISec
         <List>
             <Table {...tableProps} rowKey="id">
                 <Table.Column
-                    dataIndex="sectionid"
-                    key="sectionid"
+                    dataIndex="id"
+                    key="id"
                     title="ID"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("sectionid", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("id", sorter)}
                     sorter
                 />
                 <Table.Column
@@ -48,9 +48,9 @@ export const SectionList: React.FC<IResourceComponentsProps<GetListResponse<ISec
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.sectionid}/>
-                            <ShowButton hideText size="small" recordItemId={record.sectionid}/>
-                            <DeleteButton hideText size="small" recordItemId={record.sectionid}/>
+                            <EditButton hideText size="small" recordItemId={record.id}/>
+                            <ShowButton hideText size="small" recordItemId={record.id}/>
+                            <DeleteButton hideText size="small" recordItemId={record.id}/>
                         </Space>
                     )}
                 />

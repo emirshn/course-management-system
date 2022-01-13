@@ -22,7 +22,7 @@ export const SectionEdit: React.FC<IResourceComponentsProps> = () => {
     return (
         <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                            <Form.Item name="sectionid" initialValue="-1" hidden>
+                            <Form.Item name="id" initialValue="-1" hidden>
                                 <Input/>
                             </Form.Item>
 

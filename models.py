@@ -68,7 +68,7 @@ class Semester(BaseModel):
 
 
 class Section(BaseModel):
-    sectionid: int
+    id: int
     name: str
     shortname: str
 

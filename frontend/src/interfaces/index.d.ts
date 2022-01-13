@@ -102,7 +102,7 @@ export interface ISemester{
 }
 
 export interface ISection{
-    sectionid:int
+    id:int
     name: str
     shortname: str
 }

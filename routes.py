@@ -236,8 +236,8 @@ def create_schedule(schedule: CourseSchedule, response: Response):
 
 @router.post('/section', tags=['Section'])
 def create_section(section: Section, response: Response):
-    sql = "insert into Section(id, name, shortName) values(?,?,?)"
-    params = (section.sectionid, section.name, section.shortname)
+    sql = "insert into Section(name, shortName) values(?,?)"
+    params = (section.name, section.shortname)
     run_query(sql, params, response)
     return {
         "success": True
@@ -295,7 +295,7 @@ def update_course(course: Course, response: Response):
 @router.patch("/section/{section_id}", tags=['Section'])
 def update_section(section: Section, response: Response):
     sql = "UPDATE Section SET id = ?, name = ?, shortName = ?"
-    params = (section.sectionid, section.name, section.shortname)
+    params = (section.id, section.name, section.shortname)
     run_query(sql, params, response)
     return {
         "success": True
@@ -413,7 +413,7 @@ def delete_section(section_id: int, response: Response):
     }
 
 @router.delete("/exam-result/{result_id}", tags=['Exam Result'])
-def delete_section(result_id: int, response: Response):
+def delete_result(result_id: int, response: Response):
     sql = "DELETE FROM Exam_Result WHERE resultID = ?"
     params = (result_id,)
     run_query(sql, params, response)

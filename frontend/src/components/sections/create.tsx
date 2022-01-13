@@ -30,7 +30,7 @@ export const SectionCreate: React.FC<IResourceComponentsProps> = () => {
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item name="sectionid" initialValue="-1" hidden>
+                <Form.Item name="id" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
 
