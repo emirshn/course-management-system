@@ -81,13 +81,8 @@ async def get_course_teachers():
 
 
 @router.get('/schedule', tags=['CourseSchedule'])
-async def get_class():
-    # return fetch('''
-    #     select distinct class.className
-    #     from Class, Course_Schedule schedule
-    #     where class.classID = schedule.classID
-    # ''');
-    return fetch('select distinct Course_Schedule.classID from Course_Schedule')
+async def get_schedules():
+    return fetch('SELECT * FROM Course_Schedule')
 
 
 @router.get("/course/{course_id}", tags=['Course'])
@@ -151,12 +146,8 @@ async def get_semester(semester_id: int):
 
 
 @router.get('/schedule/{classId}', tags=['CourseSchedule'])
-def get_schedule(classId: int, response: Response):
-    sql = 'select * from Course_Schedule where classID = ?'
-    params = (classId,)
-    run_query(sql, params, response)
-    return {"success": True}
-
+def get_schedule(classId: int):
+    return fetch("SELECT * FROM Course_Schedule WHERE classID = ?", (classId,))[0]
 
 @router.post("/login", tags=['User'])
 def check_credentials(email: str, password: str, response: Response):
@@ -364,10 +355,10 @@ def update_semester(semester: Semester, response: Response):
     }
 
 
-@router.patch('/schedule/{schedule_id}', tags=['CourseSchedule'])
-def edit_schedule(courseSchedule: CourseSchedule, response: Response):
-    sql = "UPDATE Course_Schedule SET courseID = ?, classID = ?, courseDay = ?, courseHour = ?"
-    params = (courseSchedule.courseid, courseSchedule.classid, courseSchedule.courseday, courseSchedule.coursehour)
+@router.patch('/schedule/{class_id}', tags=['CourseSchedule'])
+def edit_schedule(class_id: int, courseSchedule: CourseSchedule, response: Response):
+    sql = "UPDATE Course_Schedule SET courseID = ?, courseDay = ?, courseHour = ? WHERE classID = ?"
+    params = (courseSchedule.courseid, courseSchedule.courseday, courseSchedule.coursehour, class_id)
     run_query(sql, params, response)
     return {
         "success": True
@@ -532,10 +523,10 @@ def delete_user(user_id: int, response: Response):
     return {"item_id": user_id}
 
 
-@router.delete('/schedule/{course_id}', tags=['CourseSchedule'])
-def delete_schedule(course_id: int, response: Response):
-    sql = "delete from Course_Schedule where courseID = ?"
-    params = (course_id,)
+@router.delete('/schedule', tags=['CourseSchedule'])
+def delete_schedule(schedule: CourseSchedule, response: Response):
+    sql = "delete from Course_Schedule where classID = ? and courseID = ? and courseHour = ? and courseDay = ?"
+    params = (schedule.classid, schedule.courseid, schedule.coursehour, schedule.courseday)
     run_query(sql, params, response)
     return {
         "success": True
