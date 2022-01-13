@@ -15,7 +15,7 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {IStudent} from "src/interfaces";
+import {IStudent, ISchool, IGrade, ISection} from "src/interfaces";
 import {number} from "prop-types";
 
 export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
@@ -23,80 +23,52 @@ export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {formProps, saveButtonProps} = useForm<IStudent>();
 
-    const {selectProps} = useSelect<IStudent>({
-        resource: "student",
+    const {selectProps: schoolSelectProps} = useSelect<ISchool>({
+        resource: "school",
+        optionLabel: "name",
+        optionValue: "id",
+        sort: [
+            {
+                field: "name",
+                order: "desc",
+            },
+        ],
+    });
+
+    const {selectProps: gradeSelectProps} = useSelect<IGrade>({
+        resource: "grade",
+        optionLabel: "grade",
+        optionValue: "grade",
+        sort: [
+            {
+                field: "grade",
+                order: "asc",
+            },
+        ],
+    });
+
+    const {selectProps: sectionSelectProps} = useSelect<ISection>({
+        resource: "section",
+        optionLabel: "name",
+        optionValue: "id",
+        sort: [
+            {
+                field: "name",
+                order: "asc",
+            },
+        ],
     });
 
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item name="classid" initialValue="-1" hidden>
+                <Form.Item name="studentid" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
-                <Form.Item
-                    label="Student ID"
-                    name="studentid"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
+                <Form.Item name="userid" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
-                <Form.Item
-                    label="School"
-                    name="school"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    label="Grade"
-                    name="grade"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    label="Section"
-                    name="section"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    label="User ID"
-                    name="userid"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    label="Class"
-                    name="studentclass"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
+                <Form.Item name="class" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
                 <Form.Item
@@ -163,8 +135,42 @@ export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
+                    <Input placeholder="YYYY-MM-DD"/>
                 </Form.Item>
+                <Form.Item
+                    label="School"
+                    name="school"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Select {...schoolSelectProps} />
+                </Form.Item>
+                <Form.Item
+                    label="Grade"
+                    name="grade"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Select {...gradeSelectProps} />
+                </Form.Item>
+                <Form.Item
+                    label="Section"
+                    name="section"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Select {...sectionSelectProps} />
+                </Form.Item>
+
             </Form>
         </Create>
     );
