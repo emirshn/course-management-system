@@ -52,7 +52,7 @@ export const ExamResultEdit: React.FC<IResourceComponentsProps> = () => {
 
                             <Form.Item
                                         label="Grade"
-                                        name="gread"
+                                        name="grade"
                                         rules={[
                                             {
                                                 required: true,
