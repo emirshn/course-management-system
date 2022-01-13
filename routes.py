@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/grade", tags=['Grade'])
-def read_root():
+def get_class_grades():
     return [{'grade': 9}, {'grade': 10}, {'grade': 11}, {'grade': 12}]
 
 
