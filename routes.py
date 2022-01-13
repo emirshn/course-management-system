@@ -337,7 +337,7 @@ def update_school(school: School, response: Response):
     }
 
 
-@router.patch("/exam-result/{result_id}", tags=['Result'])
+@router.patch("/exam-result/{result_id}", tags=['Exam Result'])
 def update_result(result: ExamResult, response: Response):
     sql = "UPDATE Exam_Result SET studentID = ?, courseID = ?, grade = ?, date = ? WHERE resultID = ?"
     params = (result.studentid, result.courseid, result.grade, result.date, result.resultid)
