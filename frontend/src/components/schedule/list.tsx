@@ -15,9 +15,6 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
             initialData,
         },
     });
-    const scheduleHandler = (id: string) => {
-        return fetch(`http://localhost:8000/schedule/${id}`);
-    }
     return (
         <List>
             <Table {...tableProps} rowKey="classid">
@@ -29,7 +26,31 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
                     defaultSortOrder={getDefaultSortOrder("classid", sorter)}
                     sorter
                 />
+                <Table.Column
+                    dataIndex="courseid"
+                    key="courseid"
+                    title="Course ID"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("courseid", sorter)}
+                    sorter
+                />
                 
+                <Table.Column
+                    dataIndex="coursehour"
+                    key="coursehour"
+                    title="Course Hour"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("coursehour", sorter)}
+                    sorter
+                />
+                <Table.Column
+                    dataIndex="courseday"
+                    key="courseday"
+                    title="Course Day"
+                    render={(value) => <TextField value={value}/>}
+                    defaultSortOrder={getDefaultSortOrder("courseday", sorter)}
+                    sorter
+                />
                 <Table.Column<ICourseSchedule>
                     title="Actions"
                     dataIndex="actions"

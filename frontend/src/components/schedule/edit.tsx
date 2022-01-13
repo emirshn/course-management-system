@@ -22,8 +22,9 @@ export const ScheduleEdit: React.FC<IResourceComponentsProps> = () => {
     return (
         <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
+
                  <Form.Item
-                    label="ID"
+                    label="Class ID"
                     name="classid"
                     rules={[
                         {
