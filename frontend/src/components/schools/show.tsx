@@ -20,9 +20,9 @@ export const SchoolShow: React.FC<IResourceComponentsProps> = () => {
     return (
         <Show isLoading={isLoading}>
             <Title level={5}>School ID</Title>
-            <Text>{record?.schoolid}</Text>
+            <Text>{record?.id}</Text>
             <Title level={5}>School Name</Title>
-            <Text>{record?.schoolname}</Text>
+            <Text>{record?.name}</Text>
         </Show>
     );
 };

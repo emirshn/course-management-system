@@ -55,8 +55,8 @@ class CourseSchedule(BaseModel):
 
 
 class School(BaseModel):
-    schoolid: int
-    schoolname: str
+    id: int
+    name: str
 
 
 class Semester(BaseModel):

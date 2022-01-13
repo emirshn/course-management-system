@@ -199,7 +199,7 @@ def create_student(student: Student, response: Response):
 @router.post("/school", tags=['School'])
 def create_school(school: School, response: Response):
     sql = "INSERT INTO School (name) VALUES (?); "
-    params = school.schoolname
+    params = (school.name,)
     run_query(sql, params, response)
     return {
         "success": True
@@ -326,7 +326,7 @@ def update_student(student: Student, response: Response):
 @router.patch("/school/{school_id}", tags=['School'])
 def update_school(school: School, response: Response):
     sql = "UPDATE School SET name = ? WHERE id = ?"
-    params = (school.schoolname, school.schoolid)
+    params = (school.name, school.id)
     run_query(sql, params, response)
     return {
         "success": True
@@ -454,7 +454,7 @@ def delete_student(student_id: int, response: Response):
 @router.delete("/school/{school_id}", tags=['School'])
 def delete_school(school_id: int, response: Response):
     sql = "DELETE FROM School WHERE id = ?"
-    params = school_id
+    params = (school_id,)
     run_query(sql, params, response)
     return {
         "success": True

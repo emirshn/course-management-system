@@ -89,8 +89,8 @@ export interface ITeacher {
 }
 
 export interface ISchool {
-    schoolid: int
-    schoolname: str
+    id: int
+    name: str
 }
 
 export interface ISemester{

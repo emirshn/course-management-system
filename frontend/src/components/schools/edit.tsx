@@ -22,13 +22,13 @@ export const SchoolEdit: React.FC<IResourceComponentsProps> = () => {
     return (
         <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                            <Form.Item name="schoolid" initialValue="-1" hidden>
+                            <Form.Item name="id" initialValue="-1" hidden>
                                 <Input/>
                             </Form.Item>
 
                             <Form.Item
                                 label="School Name"
-                                name="schoolname"
+                                name="name"
                                 rules={[
                                     {
                                         required: true,
