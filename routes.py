@@ -35,7 +35,7 @@ async def students_list():
 @router.get("/student-parent", tags=['Student Parent'])
 async def student_parents_list():
     return fetch(
-        "SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
+        "SELECT distinct cast(stu.studentID as nvarchar) + '-' + cast(par.parentID as nvarchar) pk, stu.studentID, par.parentID, stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
 
 
 @router.get("/section", tags=['Section'])
@@ -78,11 +78,6 @@ async def get_semesters():
 @router.get('/course-teacher', tags=['Course Teacher'])
 async def get_course_teachers():
     return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
-
-
-@router.get('/student-parent', tags=['Student Parent'])
-async def get_student_parents(student_id: int):
-    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?', (student_id, ))
 
 
 @router.get('/schedule', tags=['CourseSchedule'])
@@ -139,9 +134,10 @@ async def get_course_teacher(course_id: int):
     return fetch('SELECT * FROM dbo.getTeachersCoursePlan t WHERE courseID = ? ORDER BY courseDay', (course_id,))
 
 
-@router.get('/student-parent/{student_id}', tags=['Student Parent'])
-async def get_student_parent(student_id: int):
-    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?', (student_id,))
+@router.get('/student-parent/{primary_key}', tags=['Student Parent'])
+async def get_student_parent(primary_key: str):
+    student_id, parent_id = primary_key.split('-')
+    return fetch("SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID and sp.studentID = ? and sp.parentID = ?", (student_id, parent_id))[0]
 
 
 @router.get("/school/{school_id}", tags=['School'])
@@ -547,9 +543,21 @@ def delete_schedule(course_id: int, response: Response):
 
 
 @router.delete('/course-teacher/{course_id}', tags=['Course Teacher'])
-def delete_schedule(course_id: int, response: Response):
+def unassign_course(course_id: int, response: Response):
     sql = "delete from Course_Teacher where courseID = ?"
     params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.delete('/student-parent/{composite_primary_key}', tags=['Student Parent'])
+def delete_student_parent(primary_key: str, response: Response):
+    sql = "DELETE FROM Student_Parent WHERE studentID = ? AND parentID = ?"
+    # split primary key with '-'
+    student_id, parent_id = primary_key.split('-')
+    params = (student_id, parent_id)
     run_query(sql, params, response)
     return {
         "success": True

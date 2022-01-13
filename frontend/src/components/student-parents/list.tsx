@@ -18,7 +18,7 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
 
     return (
         <List>
-            <Table {...tableProps} rowKey="studentname">
+            <Table {...tableProps} rowKey="pk">
                 <Table.Column
                     dataIndex="studentname"
                     key="studentname"
@@ -40,9 +40,9 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.studentname}/>
-                            <ShowButton hideText size="small" recordItemId={record.studentname}/>
-                            <DeleteButton hideText size="small" recordItemId={record.studentname}/>
+                            {/*<EditButton hideText size="small" recordItemId={record.pk} />*/}
+                            <ShowButton hideText size="small" recordItemId={record.pk} />
+                            <DeleteButton hideText size="small" recordItemId={record.pk} />
                         </Space>
                     )}
                 />

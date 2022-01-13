@@ -33,9 +33,8 @@ export const StudentParenEdit: React.FC<IResourceComponentsProps> = () => {
                 >
                     <Input disabled/>
                 </Form.Item>
-
-                 <Form.Item
-                    label="Parent ID"
+                <Form.Item
+                    label="Student ID"
                     name="parentid"
                     rules={[
                         {
