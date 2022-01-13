@@ -5,14 +5,24 @@ import {
     useTable,
     IResourceComponentsProps,
     getDefaultSortOrder,
-    GetListResponse, Space, EditButton, ShowButton, DeleteButton,
+    GetListResponse, Space, EditButton, ShowButton, DeleteButton, useMany,
 } from "@pankod/refine";
-import {IStudent} from "src/interfaces";
+import {ISchool, IStudent} from "src/interfaces";
 
 export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStudent>>> = ({initialData}) => {
     const {tableProps, sorter} = useTable<IStudent>({
         queryOptions: {
             initialData,
+        },
+    });
+
+    const schoolIds =
+        tableProps?.dataSource?.map((item) => item.school) ?? [];
+    const {data: schoolsData, isLoading} = useMany<ISchool>({
+        resource: "school",
+        ids: schoolIds,
+        queryOptions: {
+            enabled: schoolIds.length > 0,
         },
     });
 
@@ -28,33 +38,41 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
                     sorter
                 />
 
-                <Table.Column 
+                <Table.Column
                     dataIndex="firstname"
                     key="firstname"
                     title="Firstname"
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("firstname", sorter)}
                     sorter
-                /> 
+                />
                 {/* <TextField value = {"some"}> {console.log(tableProps) }</TextField> */}
 
-                <Table.Column 
+                <Table.Column
                     dataIndex="lastname"
                     key="lastname"
                     title="Lastname"
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("lastname", sorter)}
                     sorter
-                /> 
+                />
                 {/* <TextField value = {"some"}> {console.log(tableProps) }</TextField> */}
-
                 <Table.Column
                     dataIndex="school"
-                    key="school"
                     title="School"
-                    render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("school", sorter)}
-                    sorter
+                    render={(value) => {
+                        if (isLoading) {
+                            return <TextField value="Loading..."/>;
+                        }
+
+                        return (
+                            <TextField
+                                value={
+                                    schoolsData?.data.find((item) => item.id === value)?.name
+                                }
+                            />
+                        );
+                    }}
                 />
                 <Table.Column
                     dataIndex="grade"
