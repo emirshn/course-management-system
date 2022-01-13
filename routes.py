@@ -31,9 +31,11 @@ async def classes_list():
 async def students_list():
     return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
+
 @router.get("/student-parent", tags=['Student Parent'])
 async def student_parents_list():
-    return fetch("SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
+    return fetch(
+        "SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
 
 
 @router.get("/section", tags=['Section'])
@@ -62,6 +64,7 @@ async def users_list():
 async def school_list():
     return fetch("SELECT * FROM School")
 
+
 @router.get("/exam-result", tags=['Exam Result'])
 async def results_list():
     return fetch("SELECT * FROM Exam_Result")
@@ -76,9 +79,11 @@ async def get_semesters():
 async def get_course_teachers():
     return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
 
+
 @router.get('/student-parent', tags=['Student Parent'])
 async def get_student_parents(student_id: int):
-    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?'(student_id,)[0])
+    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?', (student_id, ))
+
 
 @router.get('/schedule', tags=['CourseSchedule'])
 async def get_class():
@@ -109,10 +114,10 @@ async def get_section(section_id: int):
 async def get_student(student_id: int):
     return fetch("SELECT * FROM Student inner join Parent WHERE studentID = ?", (student_id,))[0]
 
+
 @router.get("/exam-result/{result_id}", tags=['Exam Result'])
 async def get_result(result_id: int):
     return fetch("SELECT * FROM Exam_Result WHERE resultID = ?", (result_id,))[0]
-
 
 
 @router.get("/parent/{parent_id}", tags=['Parent'])
@@ -209,6 +214,7 @@ def create_school(school: School, response: Response):
         "success": True
     }
 
+
 @router.post("/exam-result", tags=['Exam Result'])
 def create_result(result: ExamResult, response: Response):
     sql = "INSERT INTO Exam_Result (StudentID, CourseID, grade, date) VALUES (?,?,?,?) "
@@ -237,6 +243,7 @@ def create_schedule(schedule: CourseSchedule, response: Response):
     return {
         "success": True
     }
+
 
 @router.post('/section', tags=['Section'])
 def create_section(section: Section, response: Response):
@@ -277,6 +284,7 @@ def assign_course(course_teacher: CourseTeacher, response: Response):
         "success": True
     }
 
+
 @router.post('/student-parent', tags=['Student Parent'])
 def assign_parent(student_parent: StudentParent, response: Response):
     sql = "insert into Student_Parent(studentID, parentID) values(?,?)"
@@ -285,6 +293,7 @@ def assign_parent(student_parent: StudentParent, response: Response):
     return {
         "success": True
     }
+
 
 @router.patch("/course/{course_id}", tags=['Course'])
 def update_course(course: Course, response: Response):
@@ -335,6 +344,7 @@ def update_school(school: School, response: Response):
     return {
         "success": True
     }
+
 
 @router.patch("/exam-result/{result_id}", tags=['Result'])
 def update_result(result: ExamResult, response: Response):
@@ -407,6 +417,7 @@ def delete_parent(parent_id: int, response: Response):
         "success": True
     }
 
+
 @router.delete("/section/{section_id}", tags=['Section'])
 def delete_section(section_id: int, response: Response):
     sql = "DELETE FROM Section WHERE id = ?"
@@ -416,6 +427,7 @@ def delete_section(section_id: int, response: Response):
         "success": True
     }
 
+
 @router.delete("/exam-result/{result_id}", tags=['Exam Result'])
 def delete_result(result_id: int, response: Response):
     sql = "DELETE FROM Exam_Result WHERE resultID = ?"
@@ -424,6 +436,7 @@ def delete_result(result_id: int, response: Response):
     return {
         "success": True
     }
+
 
 @router.delete("/teacher/{teacher_id}", tags=['Teacher'])
 def delete_teacher(teacher_id: int, response: Response):

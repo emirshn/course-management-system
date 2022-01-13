@@ -18,9 +18,9 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
 
     return (
         <List>
-            <Table {...tableProps} rowKey="studentid">
+            <Table {...tableProps} rowKey="studentname">
                 <Table.Column
-                    dataIndex="studentName"
+                    dataIndex="studentname"
                     key="studentname"
                     title="Student Name"
                     render={(value) => <TextField value={value}/>}
@@ -28,7 +28,7 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
                     sorter
                 />
                 <Table.Column
-                    dataIndex="parentName"
+                    dataIndex="parentname"
                     key="parentname"
                     title="Parent Name"
                     render={(value) => <TextField value={value}/>}
@@ -40,9 +40,9 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.studentid}/>
-                            <ShowButton hideText size="small" recordItemId={record.studentid}/>
-                            <DeleteButton hideText size="small" recordItemId={record.studentid}/>
+                            <EditButton hideText size="small" recordItemId={record.studentname}/>
+                            <ShowButton hideText size="small" recordItemId={record.studentname}/>
+                            <DeleteButton hideText size="small" recordItemId={record.studentname}/>
                         </Space>
                     )}
                 />
