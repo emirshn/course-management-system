@@ -22,6 +22,7 @@ export interface ICourse {
     isactive: number;
     grade: number;
     shortname: string;
+    displayname: string;
 }
 
 export interface IClass {

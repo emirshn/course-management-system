@@ -19,7 +19,7 @@ def read_root():
 
 @router.get("/course", tags=['Course'])
 async def courses_list():
-    return fetch("SELECT * FROM Course")
+    return fetch("SELECT *, coursename + ' ' + CAST(grade as nvarchar) displayname FROM Course")
 
 
 @router.get("/class", tags=['Class'])
@@ -29,7 +29,7 @@ async def classes_list():
 
 @router.get("/student", tags=['Student'])
 async def students_list():
-    return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
+    return fetch("SELECT u.firstName + ' ' + u.lastName fullname, u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
 
 @router.get("/student-parent", tags=['Student Parent'])
@@ -92,7 +92,7 @@ async def get_class():
 
 @router.get("/course/{course_id}", tags=['Course'])
 async def get_course(course_id: int):
-    return fetch("SELECT * FROM Course WHERE courseID = ?", (course_id,))[0]
+    return fetch("SELECT *, coursename + ' ' + CAST(grade as nvarchar) displayname FROM Course WHERE courseID = ?", (course_id,))[0]
 
 
 @router.get("/class/{class_id}", tags=['Class'])

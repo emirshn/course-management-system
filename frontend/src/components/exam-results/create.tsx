@@ -15,8 +15,10 @@ import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import {IExamResult} from "src/interfaces";
+import {IExamResult, ICourse, IStudent} from "src/interfaces";
 import {number} from "prop-types";
+import dayjs from "dayjs";
+import {DatePicker} from "antd";
 
 export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
@@ -27,15 +29,38 @@ export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
         resource: "exam-result",
     });
 
+    const {selectProps: studentSelectProps} = useSelect<IStudent>({
+        resource: "student",
+        optionLabel: "studentname",
+        optionValue: "studentid",
+        sort: [
+            {
+                field: "studentname",
+                order: "desc",
+            },
+        ],
+    });
+
+    const {selectProps: courseSelectProps} = useSelect<ICourse>({
+        resource: "course",
+        optionLabel: "displayname",
+        optionValue: "courseid",
+        sort: [
+            {
+                field: "displayname",
+                order: "desc",
+            },
+        ],
+    });
+
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
                 <Form.Item name="resultid" initialValue="-1" hidden>
                     <Input/>
                 </Form.Item>
-
                 <Form.Item
-                    label="Student ID"
+                    label="Student"
                     name="studentid"
                     rules={[
                         {
@@ -43,11 +68,10 @@ export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
+                    <Select {...studentSelectProps} />
                 </Form.Item>
-
                 <Form.Item
-                    label="Course ID"
+                    label="Course"
                     name="courseid"
                     rules={[
                         {
@@ -55,30 +79,27 @@ export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
-                </Form.Item>
-
-                <Form.Item
-                            label="Grade"
-                            name="grade"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input/>
+                    <Select {...courseSelectProps} />
                 </Form.Item>
                 <Form.Item
-                            label="Date"
-                            name="date"
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input/>
+                    label="Grade"
+                    name="grade"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input type="number" min="0" max="100"/>
+                </Form.Item>
+                <Form.Item
+                    label="Date"
+                    name="date"
+                    getValueProps={(value) => ({
+                        value: value ? dayjs(value) : "",
+                    })}
+                >
+                    <DatePicker/>
                 </Form.Item>
             </Form>
         </Create>
