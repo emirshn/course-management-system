@@ -7,7 +7,7 @@ import {
     getDefaultSortOrder,
     GetListResponse, Space, EditButton, ShowButton, DeleteButton, useMany,
 } from "@pankod/refine";
-import {ISchool, IStudent} from "src/interfaces";
+import {ISchool, ISection, IStudent} from "src/interfaces";
 
 export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStudent>>> = ({initialData}) => {
     const {tableProps, sorter} = useTable<IStudent>({
@@ -23,6 +23,16 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
         ids: schoolIds,
         queryOptions: {
             enabled: schoolIds.length > 0,
+        },
+    });
+
+    const sectionIds =
+        tableProps?.dataSource?.map((item) => item.section) ?? [];
+    const {data: sectionsData, isLoading2} = useMany<ISection>({
+        resource: "section",
+        ids: sectionIds,
+        queryOptions: {
+            enabled: sectionIds.length > 0,
         },
     });
 
@@ -84,24 +94,25 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
                 />
                 <Table.Column
                     dataIndex="section"
-                    key="section"
                     title="Section"
-                    render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("section", sorter)}
-                    sorter
-                />
-                <Table.Column
-                    dataIndex="userid"
-                    key="userid"
-                    title="User ID"
-                    render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("userid", sorter)}
-                    sorter
+                    render={(value) => {
+                        if (isLoading2) {
+                            return <TextField value="Loading..."/>;
+                        }
+
+                        return (
+                            <TextField
+                                value={
+                                    sectionsData?.data.find((item) => item.id === value)?.name
+                                }
+                            />
+                        );
+                    }}
                 />
                 <Table.Column
                     dataIndex="class"
                     key="studentclass"
-                    title="Class"
+                    title="Class ID"
                     render={(value) => <TextField value={value}/>}
                     defaultSortOrder={getDefaultSortOrder("studentclass", sorter)}
                     sorter

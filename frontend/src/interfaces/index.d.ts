@@ -39,7 +39,7 @@ export interface IStudent {
     studentid: string;
     school: string;
     grade: number;
-    section: number;
+    section: string;
     userid: number;
     class: number;
 }
