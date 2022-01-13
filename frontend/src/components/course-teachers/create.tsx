@@ -25,13 +25,13 @@ export const CourseTeacherCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {selectProps: teacherSelectProps} = useSelect<ITeacher>({
         resource: "teacher",
-        optionLabel: "firstname",
+        optionLabel: "fullname",
         optionValue: "teacherid",
     });
 
     const {selectProps: courseSelectProps} = useSelect<ICourse>({
         resource: "course",
-        optionLabel: "coursename",
+        optionLabel: "displayname",
         optionValue: "courseid",
         sort: [
             {
