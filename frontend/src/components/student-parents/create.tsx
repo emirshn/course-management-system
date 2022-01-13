@@ -25,13 +25,13 @@ export const StudentParentCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {selectProps: studentSelectProps} = useSelect<IStudent>({
         resource: "student",
-        optionLabel: "firstname",
+        optionLabel: "fullname",
         optionValue: "studentid",
     });
 
     const {selectProps: parentSelectProps} = useSelect<IParent>({
         resource: "parent",
-        optionLabel: "firstname",
+        optionLabel: "fullname",
         optionValue: "parentid",
     });
 

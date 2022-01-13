@@ -46,13 +46,13 @@ async def section_list():
 @router.get("/parent", tags=['Parent'])
 async def parents_list():
     return fetch(
-        "SELECT p.parentID, u.firstName, u.lastName from Parent p inner join [User] u on u.userID = p.parentID")
+        "SELECT u.firstName + ' ' + u.lastName fullname, p.parentID, u.firstName, u.lastName from Parent p inner join [User] u on u.userID = p.parentID")
 
 
 @router.get("/teacher", tags=['Teacher'])
 async def teachers_list():
     return fetch(
-        "SELECT t.teacherID, u.firstName, u.lastName from Teacher t inner join [User] u on u.userID = t.teacherID")
+        "SELECT u.firstName + ' ' + u.lastName fullname, t.teacherID, u.firstName, u.lastName from Teacher t inner join [User] u on u.userID = t.teacherID")
 
 
 @router.get("/users", tags=['User'])
