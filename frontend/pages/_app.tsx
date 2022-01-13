@@ -151,6 +151,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     edit: SchoolEdit,
                     show: SchoolShow,
                 },
+                {
+                    name: "student-parent",
+                    list: StudentParentList,
+                    create: StudentParentCreate,
+                    edit: StudentParentEdit,
+                    show: StudentParentShow,
+                },
 
             ]}
         >

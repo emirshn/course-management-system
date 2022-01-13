@@ -20,15 +20,15 @@ export const StudentParentList: React.FC<IResourceComponentsProps<GetListRespons
         <List>
             <Table {...tableProps} rowKey="studentid">
                 <Table.Column
-                    dataIndex="studentname"
+                    dataIndex="studentName"
                     key="studentname"
                     title="Student Name"
                     render={(value) => <TextField value={value}/>}
-                    defaultSortOrder={getDefaultSortOrder("studentname", sorter)}
+                    defaultSortOrder={getDefaultSortOrder("studentnme", sorter)}
                     sorter
                 />
                 <Table.Column
-                    dataIndex="parentname"
+                    dataIndex="parentName"
                     key="parentname"
                     title="Parent Name"
                     render={(value) => <TextField value={value}/>}

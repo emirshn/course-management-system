@@ -31,6 +31,10 @@ async def classes_list():
 async def students_list():
     return fetch("SELECT u.firstName, u.lastName, * from Student s inner join [User] u on u.userID = s.userID")
 
+@router.get("/student-parent", tags=['Student Parent'])
+async def student_parents_list():
+    return fetch("SELECT stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
+
 
 @router.get("/section", tags=['Section'])
 async def section_list():
@@ -73,8 +77,8 @@ async def get_course_teachers():
     return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
 
 @router.get('/student-parent', tags=['Student Parent'])
-async def get_student_parents():
-    return fetch('SELECT * FROM Student_Parent')
+async def get_student_parents(student_id: int):
+    return fetch('SELECT * FROM Student_Parent WHERE studentID = ?'(student_id,)[0])
 
 @router.get('/schedule', tags=['CourseSchedule'])
 async def get_class():
@@ -103,7 +107,7 @@ async def get_section(section_id: int):
 
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
-    return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
+    return fetch("SELECT * FROM Student inner join Parent WHERE studentID = ?", (student_id,))[0]
 
 @router.get("/exam-result/{result_id}", tags=['Exam Result'])
 async def get_result(result_id: int):
