@@ -68,13 +68,6 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
             dataProvider={dataProvider(API_URL)}
             resources={[
                 {
-                    name: "posts",
-                    list: PostList,
-                    create: PostCreate,
-                    edit: PostEdit,
-                    show: PostShow,
-                },
-                {
                     name: "course",
                     list: CourseList,
                     create: CourseCreate,
