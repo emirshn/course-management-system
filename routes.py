@@ -316,8 +316,8 @@ def update_course(course_teacher: CourseTeacher, response: Response):
 
 @router.patch("/section/{section_id}", tags=['Section'])
 def update_section(section: Section, response: Response):
-    sql = "UPDATE Section SET name = ?, shortName = ?"
-    params = (section.name, section.shortname)
+    sql = "UPDATE Section SET name = ?, shortName = ? WHERE id = ?"
+    params = (section.name, section.shortname, section.id)
     run_query(sql, params, response)
     return {
         "success": True
