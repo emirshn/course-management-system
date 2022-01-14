@@ -337,8 +337,10 @@ def update_class(clas: Class, response: Response):
 
 @router.patch("/student/{student_id}", tags=['Student'])
 def update_student(student: Student, response: Response):
-    sql = "UPDATE Student SET school = ?, class = ? WHERE studentID = ?"
-    params = (student.school, student.studentclass, student.studentid)
+    sql = "exec UpdateStudent @studentID = ?, @school = ?, @class = ?"
+    params = (student.studentid, student.school, student.studentclass)
+    #sql = "UPDATE Student SET school = ?, class = ?, grade = ?, section = ? WHERE studentID = ?"
+    #params = (student.school, student.studentclass, student.studentid)
     run_query(sql, params, response)
     sql = "UPDATE [User] SET email = ?, phoneNumber = ?, address = ?, birthDate = ? WHERE userID = ?"
     params = (student.email, student.phonenumber, student.address, student.birthdate, student.userid)
