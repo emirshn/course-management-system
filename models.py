@@ -77,10 +77,10 @@ class Parent(BaseModel):
     parentid: int
     firstname: str
     lastname: str
-    phone: str
-    email: str
-    address: str
-    birthdate: str
+    phone: Optional[str]
+    email: Optional[str]
+    address: Optional[str]
+    birthdate: Optional[str]
 
 
 class Teacher(BaseModel):
