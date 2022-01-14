@@ -568,10 +568,9 @@ def unassign_course(course_id: int, response: Response):
     }
 
 
-@router.delete('/student-parent/{composite_primary_key}', tags=['Student Parent'])
+@router.delete('/student-parent/{primary_key}', tags=['Student Parent'])
 def delete_student_parent(primary_key: str, response: Response):
     sql = "DELETE FROM Student_Parent WHERE studentID = ? AND parentID = ?"
-    # split primary key with '-'
     student_id, parent_id = primary_key.split('-')
     params = (student_id, parent_id)
     run_query(sql, params, response)
