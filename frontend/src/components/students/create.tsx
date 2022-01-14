@@ -153,7 +153,7 @@ export const StudentCreate: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
                 <Form.Item
                     label="Class"
-                    name="class"
+                    name="studentclass"
                     rules={[
                         {
                             required: true,
