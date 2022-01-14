@@ -31,7 +31,7 @@ export const ExamResultCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {selectProps: studentSelectProps} = useSelect<IStudent>({
         resource: "student",
-        optionLabel: "studentname",
+        optionLabel: "studentid",
         optionValue: "studentid",
         sort: [
             {
