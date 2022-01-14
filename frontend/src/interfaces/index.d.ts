@@ -139,6 +139,6 @@ export interface IGrade {
 export interface IAttendance {
     studentid: number
     courseid: number
-    isattended: number
+    isattended: boolean
     date: string
 }

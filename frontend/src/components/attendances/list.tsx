@@ -39,7 +39,7 @@ export const AttendanceList: React.FC<IResourceComponentsProps<GetListResponse<I
                     dataIndex="isattended"
                     key="isattended"
                     title="Is Atttended?"
-                    render={(value) => <TextField value={value}/>}
+                    render={(value) => <TextField value={value === "1" ? "Yes" : "No"}/>}
                     defaultSortOrder={getDefaultSortOrder("isattended", sorter)}
                     sorter
                 />
@@ -57,7 +57,7 @@ export const AttendanceList: React.FC<IResourceComponentsProps<GetListResponse<I
                     render={(_, record) => (
                         <Space>
                             {/*<EditButton hideText size="small" recordItemId={record.pk} />*/}
-                            <ShowButton hideText size="small" recordItemId={record.pk} />
+                            {/*<ShowButton hideText size="small" recordItemId={record.pk} />*/}
                             <DeleteButton hideText size="small" recordItemId={record.pk} />
                         </Space>
                     )}
