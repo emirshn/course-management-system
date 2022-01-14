@@ -41,9 +41,9 @@ class User(BaseModel):
 class Student(User):
     studentid: int
     school: str
-    grade: int
-    section: int
-    userid: int
+    grade: Optional[int]
+    section: Optional[int]
+    userid: Optional[int]
     studentclass: Optional[int]
 
 

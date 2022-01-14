@@ -84,7 +84,7 @@ async def get_semesters():
 
 @router.get('/course-teacher', tags=['Course Teacher'])
 async def get_course_teachers():
-    return fetch('SELECT TOP 501 t.* FROM dbo.getTeachersCoursePlan t')
+    return fetch('SELECT TOP 501 t.* FROM dbo.getCourseTeachers t')
 
 
 @router.get('/schedule', tags=['CourseSchedule'])
@@ -110,7 +110,7 @@ async def get_section(section_id: int):
 
 @router.get("/student/{student_id}", tags=['Student'])
 async def get_student(student_id: int):
-    return fetch("SELECT * FROM Student WHERE studentID = ?", (student_id,))[0]
+    return fetch("SELECT *, s.class studentclass FROM Student s, [User] u WHERE u.userID = s.userID and studentID = ?", (student_id,))[0]
 
 
 @router.get("/exam-result/{result_id}", tags=['Exam Result'])
@@ -135,7 +135,7 @@ async def get_teacher(teacher_id: int):
 @router.get('/course-teacher/{primary_key}', tags=['Course Teacher'])
 async def get_course_teacher(primary_key: str):
     course_id, teacher_id = primary_key.split('-')
-    return fetch('SELECT * FROM Course_Teacher WHERE courseID = ? and teacherID = ?', (course_id, teacher_id))[0]
+    return fetch('SELECT TOP 501 t.* FROM dbo.getCourseTeachers t WHERE courseID = ? and teacherID = ?', (course_id, teacher_id))[0]
 
 
 @router.get('/student-parent/{primary_key}', tags=['Student Parent'])
@@ -197,7 +197,7 @@ def create_student(student: Student, response: Response):
     sql = "exec AddStudent @firstName = ?, @lastName = ?, @email = ?, @phone = ?, @address = ?, @birthDate = ?, @school = ?, @grade = ?, @classID = ?"
     params = (
         student.firstname, student.lastname, student.email, student.phonenumber, student.address, student.birthdate,
-        student.school, student.grade, student.section)
+        student.school, student.grade, student.studentclass)
     run_query(sql, params, response)
     return {
         "success": True
@@ -337,8 +337,11 @@ def update_class(clas: Class, response: Response):
 
 @router.patch("/student/{student_id}", tags=['Student'])
 def update_student(student: Student, response: Response):
-    sql = "UPDATE Student SET grade = ?, school = ?, section = ?, userID = ?, class = ? WHERE studentID = ?"
-    params = (student.grade, student.school, student.section, student.userid, student.studentclass, student.studentid)
+    sql = "UPDATE Student SET school = ?, class = ? WHERE studentID = ?"
+    params = (student.school, student.studentclass, student.studentid)
+    run_query(sql, params, response)
+    sql = "UPDATE [User] SET email = ?, phoneNumber = ?, address = ?, birthDate = ? WHERE userID = ?"
+    params = (student.email, student.phonenumber, student.address, student.birthdate, student.userid)
     run_query(sql, params, response)
     return {
         "success": True
