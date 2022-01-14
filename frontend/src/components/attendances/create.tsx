@@ -17,6 +17,8 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 
 import {ICourse, IStudent, IAttendance} from "src/interfaces";
 import {number} from "prop-types";
+import dayjs from "dayjs";
+import {DatePicker} from "antd";
 
 export const AttendanceCreate: React.FC<IResourceComponentsProps> = () => {
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
@@ -31,7 +33,7 @@ export const AttendanceCreate: React.FC<IResourceComponentsProps> = () => {
 
     const {selectProps: courseSelectProps} = useSelect<ICourse>({
         resource: "course",
-        optionLabel: "coursename",
+        optionLabel: "displayname",
         optionValue: "courseid",
     });
 
@@ -50,7 +52,7 @@ export const AttendanceCreate: React.FC<IResourceComponentsProps> = () => {
                     <Select {...studentSelectProps} />
                 </Form.Item>
                 <Form.Item
-                    label="course"
+                    label="Course"
                     name="courseid"
                     rules={[
                         {
@@ -70,19 +72,27 @@ export const AttendanceCreate: React.FC<IResourceComponentsProps> = () => {
                         },
                     ]}
                 >
-                    <Input/>
+                    <Select
+                        options={[
+                            {
+                                label: "Yes",
+                                value: 1,
+                            },
+                            {
+                                label: "No",
+                                value: 0,
+                            }
+                        ]}
+                    />
                 </Form.Item>
-
                 <Form.Item
                     label="Date"
                     name="date"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
+                    getValueProps={(value) => ({
+                        value: value ? dayjs(value) : "",
+                    })}
                 >
-                    <Input/>
+                    <DatePicker/>
                 </Form.Item>
             </Form>
         </Create>
