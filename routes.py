@@ -38,6 +38,11 @@ async def student_parents_list():
     return fetch(
         "SELECT distinct cast(stu.studentID as nvarchar) + '-' + cast(par.parentID as nvarchar) pk, stu.studentID, par.parentID, stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
 
+@router.get("/attendance", tags=['Attendance'])
+async def attendance_list():
+    return fetch(
+        "SELECT distinct cast(stu.studentID as nvarchar) + '-' + cast(cour.courseID as nvarchar) pk, stu.studentID, cour.courseID, stu.firstName+' '+stu.lastName studentName, cour.courseNAme courseName, at.isAttented, at.date FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select c.courseName, c.courseID from Course c inner join Attendance a on a.courseID = c.courseID) cour, Attendance at WHERE cour.courseID = at.courseID and stu.studentID = at.studentID")
+
 
 @router.get("/section", tags=['Section'])
 async def section_list():

@@ -22,6 +22,7 @@ import {SectionCreate, SectionEdit, SectionList, SectionShow} from "@components/
 import {SchoolCreate, SchoolEdit, SchoolList, SchoolShow} from "@components/schools"
 import {CourseTeacherCreate, CourseTeacherEdit, CourseTeacherList, CourseTeacherShow} from "@components/course-teachers"
 import {StudentParentCreate, StudentParentEdit, StudentParentList, StudentParentShow} from "@components/student-parents"
+import {AttendanceCreate, AttendanceEdit, AttendanceList, AttendanceShow} from "@components/attendances"
 import {Login} from "src/pages/login";
 import "src/pages/login/styles.css";
 
@@ -176,6 +177,13 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
                     create: StudentParentCreate,
                     edit: StudentParentEdit,
                     show: StudentParentShow,
+                },
+                {
+                    name: "attendance",
+                    list: AttendanceList,
+                    create: AttendanceCreate,
+                    edit: AttendanceEdit,
+                    show: AttendanceShow,
                 },
 
             ]}

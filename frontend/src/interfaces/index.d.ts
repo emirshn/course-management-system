@@ -135,3 +135,10 @@ export interface IStudentParent {
 export interface IGrade {
     grade: string
 }
+
+export interface IAttendance {
+    studentid: number
+    courseid: number
+    isattended: number
+    date: string
+}

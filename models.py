@@ -107,3 +107,9 @@ class ExamResult(BaseModel):
     courseid: int
     grade: int
     date: str
+
+class Attendance(BaseModel):
+    studentid: int
+    courseid: int
+    isattended: int
+    date: str
