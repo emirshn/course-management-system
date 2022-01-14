@@ -472,10 +472,14 @@ def delete_class(class_id: int, response: Response):
     }
 
 
-@router.delete("/student/{student_id}", tags=['Student'])
-def delete_student(student_id: int, response: Response):
+@router.delete("/student/{primary_key}", tags=['Student'])
+def delete_student(primary_key: str, response: Response):
+    student_id, user_id = primary_key.split('-')
     sql = "DELETE FROM Student WHERE studentID = ?"
     params = (student_id,)
+    run_query(sql, params, response)
+    sql = "DELETE FROM [User] WHERE userID = ?"
+    params = (user_id,)
     run_query(sql, params, response)
     return {
         "success": True

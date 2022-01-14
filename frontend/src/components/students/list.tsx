@@ -124,7 +124,7 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
                         <Space>
                             <EditButton hideText size="small" recordItemId={record.studentid}/>
                             <ShowButton hideText size="small" recordItemId={record.studentid}/>
-                            <DeleteButton hideText size="small" recordItemId={record.studentid}/>
+                            <DeleteButton hideText size="small" recordItemId={record.studentid + '-' + record.userid}/>
                         </Space>
                     )}
                 />
