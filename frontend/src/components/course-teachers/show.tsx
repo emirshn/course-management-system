@@ -37,23 +37,23 @@ export const CourseTeacherShow: React.FC<IResourceComponentsProps> = () => {
     const {queryResult} = useShow<ICourseTeacher>();
     const {data, isLoading} = queryResult;
     const record = data?.data;
-    let firstRecord;
+    /*let firstRecord;
     if (!isLoading) {
         firstRecord = record[0];
-    }
+    }*/
 
     return (
         <Show isLoading={isLoading}>
             <Title level={5}>Course Name</Title>
-            <Text>{firstRecord?.coursename}</Text>
+            <Text>{record?.coursename}</Text>
             <Title level={5}>Course Grade</Title>
-            <Text>{firstRecord?.grade}</Text>
+            <Text>{record?.grade}</Text>
             <Title level={5}>Teacher Name</Title>
-            <Text>{firstRecord?.teachername}</Text>
-            <Title level={5}>Course Schedule</Title>
+            <Text>{record?.teachername}</Text>
+            {/*<Title level={5}>Course Schedule</Title>
             {record?.map((r) => (
                 <Text>{dayToString(r?.courseday)} - {r?.coursehour}. lecture hour<br/></Text>
-            ))}
+            ))}*/}
         </Show>
     );
 };
