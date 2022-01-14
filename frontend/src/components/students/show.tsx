@@ -8,7 +8,7 @@ import {
     MarkdownField,
 } from "@pankod/refine";
 
-import {ICourse, ISchool, ISection, IStudent} from "src/interfaces";
+import {IClass, ISchool, ISection, IStudent} from "src/interfaces";
 
 const {Title, Text} = Typography;
 
@@ -31,6 +31,14 @@ export const StudentShow: React.FC<IResourceComponentsProps> = () => {
         },
     });
 
+    const {data: classData} = useOne<IClass>({
+        resource: "class",
+        id: record?.class ?? "",
+        queryOptions: {
+            enabled: !!record?.class,
+        },
+    });
+
     return (
         <Show isLoading={isLoading}>
             <Title level={5}>Student ID</Title>
@@ -45,6 +53,16 @@ export const StudentShow: React.FC<IResourceComponentsProps> = () => {
             <Text>{record?.userid}</Text>
             <Title level={5}>Class ID</Title>
             <Text>{record?.class}</Text>
+            <Title level={5}>Class Name</Title>
+            <Text>{classData?.data.classname}</Text>
+            <Title level={5}>Birth Date</Title>
+            <Text>{record?.birthdate}</Text>
+            <Title level={5}>Birth Date</Title>
+            <Text>{record?.email}</Text>
+            <Title level={5}>Birth Date</Title>
+            <Text>{record?.phonenumber}</Text>
+            <Title level={5}>Registered At</Title>
+            <Text>{record?.registerdate}</Text>
         </Show>
     );
 };
