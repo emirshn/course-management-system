@@ -102,9 +102,9 @@ export const ExamResultList: React.FC<IResourceComponentsProps<GetListResponse<I
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.studentid}/>
-                            <ShowButton hideText size="small" recordItemId={record.studentid}/>
-                            <DeleteButton hideText size="small" recordItemId={record.studentid}/>
+                            <EditButton hideText size="small" recordItemId={record.resultid}/>
+                            <ShowButton hideText size="small" recordItemId={record.resultid}/>
+                            <DeleteButton hideText size="small" recordItemId={record.resultid}/>
                         </Space>
                     )}
                 />
