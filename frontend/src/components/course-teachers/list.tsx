@@ -48,9 +48,9 @@ export const CourseTeacherList: React.FC<IResourceComponentsProps<GetListRespons
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            <EditButton hideText size="small" recordItemId={record.courseid}/>
-                            <ShowButton hideText size="small" recordItemId={record.courseid}/>
-                            <DeleteButton hideText size="small" recordItemId={record.courseid}/>
+                            <EditButton hideText size="small" recordItemId={record.courseid + '-' + record.teacherid}/>
+                            <ShowButton hideText size="small" recordItemId={record.courseid + '-' + record.teacherid}/>
+                            <DeleteButton hideText size="small" recordItemId={record.courseid + '-' + record.teacherid}/>
                         </Space>
                     )}
                 />

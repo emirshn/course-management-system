@@ -38,6 +38,7 @@ async def student_parents_list():
     return fetch(
         "SELECT distinct cast(stu.studentID as nvarchar) + '-' + cast(par.parentID as nvarchar) pk, stu.studentID, par.parentID, stu.firstName+' '+stu.lastName studentName, par.firstName+' '+par.lastName parentName FROM (Select u.firstName, u.lastName, s.userID, s.studentID from Student s inner join [User] u on u.userID = s.userID) stu, (Select u2.firstName, u2.lastName, p.parentID from Parent p inner join [User] u2 on p.parentID = u2.userID) par, Student_Parent sp WHERE par.parentID = sp.parentID and stu.studentID = sp.studentID")
 
+
 @router.get("/attendance", tags=['Attendance'])
 async def attendance_list():
     return fetch(
@@ -131,9 +132,10 @@ async def get_teacher(teacher_id: int):
         (teacher_id,))[0]
 
 
-@router.get('/course-teacher/{course_id}', tags=['Course Teacher'])
-async def get_course_teacher(course_id: int):
-    return fetch('SELECT * FROM dbo.getTeachersCoursePlan t WHERE courseID = ? ORDER BY courseDay', (course_id,))
+@router.get('/course-teacher/{primary_key}', tags=['Course Teacher'])
+async def get_course_teacher(primary_key: str):
+    course_id, teacher_id = primary_key.split('-')
+    return fetch('SELECT * FROM Course_Teacher WHERE courseID = ? and teacherID = ?', (course_id, teacher_id))[0]
 
 
 @router.get('/student-parent/{primary_key}', tags=['Student Parent'])
@@ -157,6 +159,7 @@ async def get_semester(semester_id: int):
 @router.get('/schedule/{classId}', tags=['CourseSchedule'])
 def get_schedule(classId: int):
     return fetch("SELECT * FROM Course_Schedule WHERE classID = ?", (classId,))[0]
+
 
 @router.post("/login", tags=['User'])
 def check_credentials(email: str, password: str, response: Response):
@@ -295,6 +298,16 @@ def assign_parent(student_parent: StudentParent, response: Response):
 def update_course(course: Course, response: Response):
     sql = "UPDATE Course SET courseName = ?, isActive = ?, grade = ?, shortName = ? WHERE courseID = ?"
     params = (course.coursename, course.isactive, course.grade, course.shortname, course.courseid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.patch("/course-teacher/{primary_key}", tags=['Course Teacher'])
+def update_course(course_teacher: CourseTeacher, response: Response):
+    sql = "UPDATE Course_Teacher SET teacherID = ? WHERE courseID = ?"
+    params = (course_teacher.teacherid, course_teacher.courseid)
     run_query(sql, params, response)
     return {
         "success": True

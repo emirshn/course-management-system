@@ -97,9 +97,11 @@ class CourseTeacher(BaseModel):
     courseid: int
     teacherid: int
 
+
 class StudentParent(BaseModel):
     studentid: int
     parentid: int
+
 
 class ExamResult(BaseModel):
     resultid: int
@@ -107,6 +109,7 @@ class ExamResult(BaseModel):
     courseid: int
     grade: int
     date: str
+
 
 class Attendance(BaseModel):
     studentid: int
