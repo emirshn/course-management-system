@@ -435,6 +435,16 @@ def delete_course(course_id: int, response: Response):
         "success": True
     }
 
+@router.delete("/attendance/{primary_key}", tags=['Attendance'])
+def delete_attendance(primary_key: str, response: Response):
+    student_id, course_id = primary_key.split('-')
+    sql = "DELETE FROM Attendance WHERE studentID = ? and courseID = ?"
+    params = (student_id, course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
 
 @router.delete("/parent/{parent_id}", tags=['Parent'])
 def delete_parent(parent_id: int, response: Response):
