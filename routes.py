@@ -138,7 +138,6 @@ async def get_course_teacher(primary_key: str):
     return fetch('SELECT TOP 501 t.* FROM dbo.getCourseTeachers t WHERE courseID = ? and teacherID = ?', (course_id, teacher_id))[0]
 
 
-
 @router.get('/attendance/{primary_key}', tags=['Attendance'])
 async def get_attendance(primary_key: str):
     student_id, course_id = primary_key.split('-')
@@ -188,6 +187,14 @@ def create_course(course: Course, response: Response):
         "success": True
     }
 
+@router.post("/attendance", tags=['Attendance'])
+def create_attendance(attendance: Attendance, response: Response):
+    sql = "insert into Attendance values(?,?,?,?)"
+    params = (attendance.studentid, attendance.courseid, attendance.isattended, attendance.date)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.post("/class", tags=['Class'])
 def create_class(clas: Class, response: Response):
