@@ -141,7 +141,7 @@ async def get_course_teacher(primary_key: str):
 @router.get('/attendance/{primary_key}', tags=['Attendance'])
 async def get_attendance(primary_key: str):
     student_id, course_id = primary_key.split('-')
-    return fetch('SELECT us.studentName, c.courseName, cast(at.isAttented as varchar) isattended, at.date FROM Attendance at, (Select u.firstName + ' '+ u.lastName studentName, s.studentID from [User] u inner join Student s on u.userID = s.userID) us, Course c WHERE c.courseID = at.courseID and us.studentID = at.studentID and at.studentID = ? and at.courseID = ?', (student_id, course_id))[0]
+    return fetch('SELECT us.studentName, c.courseName, c.courseID,us.studentID, cast(at.isAttented as varchar) isattended, at.date FROM Attendance at, (Select u.firstName + ' '+ u.lastName studentName, s.studentID from [User] u inner join Student s on u.userID = s.userID) us, Course c WHERE c.courseID = at.courseID and us.studentID = at.studentID and at.studentID = ? and at.courseID = ?', (student_id, course_id))[0]
 
 
 @router.get('/student-parent/{primary_key}', tags=['Student Parent'])
@@ -368,6 +368,16 @@ def update_student(student: Student, response: Response):
 def update_school(school: School, response: Response):
     sql = "UPDATE School SET name = ? WHERE id = ?"
     params = (school.name, school.id)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
+@router.patch("/attendance/{primary_key}", tags=['Attendance'])
+def update_attendance(at: Attendance, response: Response):
+    sql = "UPDATE Attendance SET isAttented = ?, date = ? WHERE studentID = ? and courseID = ?"
+    params = (at.isattended, at.date, at.studentid, at.courseid)
     run_query(sql, params, response)
     return {
         "success": True

@@ -56,7 +56,7 @@ export const AttendanceList: React.FC<IResourceComponentsProps<GetListResponse<I
                     dataIndex="actions"
                     render={(_, record) => (
                         <Space>
-                            {/*<EditButton hideText size="small" recordItemId={record.pk} />*/}
+                            {<EditButton hideText size="small" recordItemId={record.pk} />}
                             {<ShowButton hideText size="small" recordItemId={record.pk} />}
                             <DeleteButton hideText size="small" recordItemId={record.pk} />
                         </Space>
