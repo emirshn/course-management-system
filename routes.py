@@ -138,6 +138,12 @@ async def get_course_teacher(primary_key: str):
     return fetch('SELECT TOP 501 t.* FROM dbo.getCourseTeachers t WHERE courseID = ? and teacherID = ?', (course_id, teacher_id))[0]
 
 
+@router.get('/attendance/{primary_key}', tags=['Attendance'])
+async def get_attendance(primary_key: str):
+    student_id, course_id = primary_key.split('-')
+    return fetch('SELECT us.studentName, c.courseName, c.courseID,us.studentID, cast(at.isAttented as varchar) isattended, at.date FROM Attendance at, (Select u.firstName + ' '+ u.lastName studentName, s.studentID from [User] u inner join Student s on u.userID = s.userID) us, Course c WHERE c.courseID = at.courseID and us.studentID = at.studentID and at.studentID = ? and at.courseID = ?', (student_id, course_id))[0]
+
+
 @router.get('/student-parent/{primary_key}', tags=['Student Parent'])
 async def get_student_parent(primary_key: str):
     student_id, parent_id = primary_key.split('-')
@@ -181,6 +187,14 @@ def create_course(course: Course, response: Response):
         "success": True
     }
 
+@router.post("/attendance", tags=['Attendance'])
+def create_attendance(attendance: Attendance, response: Response):
+    sql = "insert into Attendance values(?,?,?,?)"
+    params = (attendance.studentid, attendance.courseid, attendance.isattended, attendance.date)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
 
 @router.post("/class", tags=['Class'])
 def create_class(clas: Class, response: Response):
@@ -360,6 +374,16 @@ def update_school(school: School, response: Response):
     }
 
 
+@router.patch("/attendance/{primary_key}", tags=['Attendance'])
+def update_attendance(at: Attendance, response: Response):
+    sql = "UPDATE Attendance SET isAttented = ?, date = ? WHERE studentID = ? and courseID = ?"
+    params = (at.isattended, at.date, at.studentid, at.courseid)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+
 @router.patch("/exam-result/{result_id}", tags=['Exam Result'])
 def update_result(result: ExamResult, response: Response):
     sql = "UPDATE Exam_Result SET studentID = ?, courseID = ?, grade = ?, date = ? WHERE resultID = ?"
@@ -416,6 +440,16 @@ def edit_teacher(teacher: Teacher, response: Response):
 def delete_course(course_id: int, response: Response):
     sql = "DELETE FROM Course WHERE courseID = ?"
     params = (course_id,)
+    run_query(sql, params, response)
+    return {
+        "success": True
+    }
+
+@router.delete("/attendance/{primary_key}", tags=['Attendance'])
+def delete_attendance(primary_key: str, response: Response):
+    student_id, course_id = primary_key.split('-')
+    sql = "DELETE FROM Attendance WHERE studentID = ? and courseID = ?"
+    params = (student_id, course_id,)
     run_query(sql, params, response)
     return {
         "success": True
