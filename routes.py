@@ -454,7 +454,7 @@ def delete_result(result_id: int, response: Response):
 
 @router.delete("/teacher/{teacher_id}", tags=['Teacher'])
 def delete_teacher(teacher_id: int, response: Response):
-    sql = "DELETE FROM Teacher WHERE parentID = ?"
+    sql = "DELETE FROM Teacher WHERE teacherID = ?"
     params = (teacher_id,)
     run_query(sql, params, response)
     return {
