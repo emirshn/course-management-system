@@ -8,7 +8,7 @@ import {
     MarkdownField,
 } from "@pankod/refine";
 
-import {IStudentParent} from "src/interfaces";
+import {IAttendance} from "src/interfaces";
 
 const {Title, Text} = Typography;
 
@@ -21,9 +21,9 @@ export const AttendanceShow: React.FC<IResourceComponentsProps> = () => {
     return (
         <Show isLoading={isLoading}>
             <Title level={5}>Student Name</Title>
-            <Text>{record?.studentname}</Text>
+            <Text>{record?.studentid}</Text>
             <Title level={5}>Course Name</Title>
-            <Text>{record?.coursename}</Text>
+            <Text>{record?.courseid}</Text>
             <Title level={5}>Is Attended?</Title>
             <Text>{record?.isattended}</Text>
             <Title level={5}>Date</Title>
