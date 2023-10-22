@@ -4,3 +4,4 @@ frontend/.next/
 __pycache__
 .idea
 test
+node_modules
