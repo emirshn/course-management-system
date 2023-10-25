@@ -36,6 +36,7 @@ export interface IClass {
 }
 
 export interface IStudent {
+    fullname: string,
     studentid: string;
     school: string;
     grade: number;
@@ -63,7 +64,7 @@ export interface IUser {
 }
 
 export interface ICourseSchedule {
-    classid: number
+    classid: string
     courseid: number
     coursehour: number
     courseday: number
@@ -137,7 +138,7 @@ export interface IGrade {
 }
 
 export interface IAttendance {
-    studentid: number
+    studentid: string
     courseid: number
     isattended: boolean
     date: string

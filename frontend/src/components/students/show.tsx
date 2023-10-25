@@ -33,7 +33,7 @@ export const StudentShow: React.FC<IResourceComponentsProps> = () => {
 
     const {data: classData} = useOne<IClass>({
         resource: "class",
-        id: record?.class ?? "",
+        id: record?.class.toString() ?? "",
         queryOptions: {
             enabled: !!record?.class,
         },
@@ -55,14 +55,8 @@ export const StudentShow: React.FC<IResourceComponentsProps> = () => {
             <Text>{record?.class}</Text>
             <Title level={5}>Class Name</Title>
             <Text>{classData?.data.classname}</Text>
-            <Title level={5}>Birth Date</Title>
-            <Text>{record?.birthdate}</Text>
-            <Title level={5}>Birth Date</Title>
-            <Text>{record?.email}</Text>
-            <Title level={5}>Birth Date</Title>
-            <Text>{record?.phonenumber}</Text>
-            <Title level={5}>Registered At</Title>
-            <Text>{record?.registerdate}</Text>
+            
+        
         </Show>
     );
 };

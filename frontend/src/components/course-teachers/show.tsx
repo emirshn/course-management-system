@@ -12,7 +12,7 @@ import {ICourseTeacher} from "src/interfaces";
 
 const {Title, Text} = Typography;
 
-function dayToString(day) {
+function dayToString(day:number): String {
     switch (day - 1) {
         case 0:
             return "Monday";

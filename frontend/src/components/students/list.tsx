@@ -28,7 +28,7 @@ export const StudentList: React.FC<IResourceComponentsProps<GetListResponse<IStu
 
     const sectionIds =
         tableProps?.dataSource?.map((item) => item.section) ?? [];
-    const {data: sectionsData, isLoading2} = useMany<ISection>({
+    const {data: sectionsData, isLoading: isLoading2} = useMany<ISection>({
         resource: "section",
         ids: sectionIds,
         queryOptions: {

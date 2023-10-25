@@ -19,14 +19,14 @@ export const ClassShow: React.FC<IResourceComponentsProps> = () => {
 
     const {data: sectionData} = useOne<ISection>({
         resource: "section",
-        id: record?.section ?? "",
+        id: record?.section.toString() ?? "" ,
         queryOptions: {
             enabled: !!record?.section,
         },
     });
     const {data: semesterData} = useOne<ISemester>({
         resource: "semester",
-        id: record?.semester ?? "",
+        id: record?.semester.toString() ?? "",
         queryOptions: {
             enabled: !!record?.semester,
         },

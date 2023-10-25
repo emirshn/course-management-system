@@ -3,12 +3,11 @@ import pypyodbc as pyodbc
 connStr = (
     r'Driver={SQL Server};'
     r'Server=cse3055.mssql.somee.com;'
-    # r'Server=127.0.0.1,52865;' +
-    # r'Server=(local)\SQLEXPRESS;'
+    #r'Server=(local)\SQLEXPRESS;'
     r'Database=cse3055;'
-    # r'Trusted_Connection=Yes;'
     r'UID=marmaracse_SQLLogin_1;'
     r'PWD=l182ft8rur;'
+   
 )
 conn = pyodbc.connect(connStr)
 

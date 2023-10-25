@@ -17,7 +17,7 @@ export const ClassList: React.FC<IResourceComponentsProps<GetListResponse<IClass
     });
 
     const sectionIds =
-        tableProps?.dataSource?.map((item) => item.section) ?? [];
+        tableProps?.dataSource?.map((item) => item.section.toString()) ?? [];
     const {data: sectionsData, isLoading} = useMany<ISection>({
         resource: "section",
         ids: sectionIds,
@@ -26,15 +26,15 @@ export const ClassList: React.FC<IResourceComponentsProps<GetListResponse<IClass
         },
     });
 
-    const semesterIds =
-        tableProps?.dataSource?.map((item) => item.semester) ?? [];
-    const {data: semestersData, isLoading2} = useMany<ISemester>({
-        resource: "semester",
-        ids: semesterIds,
-        queryOptions: {
-            enabled: semesterIds.length > 0,
-        },
-    });
+    const semesterIds = tableProps?.dataSource?.map((item) => item.semester.toString()) ?? [];
+const { data: semestersData } = useMany<ISemester>({
+    resource: "semester",
+    ids: semesterIds,
+    queryOptions: {
+        enabled: semesterIds.length > 0,
+    },
+});
+
 
     return (
         <List>
