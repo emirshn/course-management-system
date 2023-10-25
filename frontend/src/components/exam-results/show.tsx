@@ -19,7 +19,7 @@ export const ExamResultShow: React.FC<IResourceComponentsProps> = () => {
 
     const {data: courseData} = useOne<ICourse>({
         resource: "course",
-        id: record?.courseid ?? "",
+        id: record?.courseid.toString() ?? "",
         queryOptions: {
             enabled: !!record?.courseid,
         },

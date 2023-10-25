@@ -17,7 +17,7 @@ export const ExamResultList: React.FC<IResourceComponentsProps<GetListResponse<I
     });
 
     const studentIds =
-        tableProps?.dataSource?.map((item) => item.studentid) ?? [];
+        tableProps?.dataSource?.map((item) => item.studentid.toString()) ?? [];
     const {data: studentsData, isLoading} = useMany<IStudent>({
         resource: "student",
         ids: studentIds,
@@ -27,8 +27,8 @@ export const ExamResultList: React.FC<IResourceComponentsProps<GetListResponse<I
     });
 
     const courseIds =
-        tableProps?.dataSource?.map((item) => item.courseid) ?? [];
-    const {data: coursesData, isLoading2} = useMany<ICourse>({
+        tableProps?.dataSource?.map((item) => item.courseid.toString()) ?? [];
+    const {data: coursesData, isLoading: isLoading2} = useMany<ICourse>({
         resource: "course",
         ids: courseIds,
         queryOptions: {

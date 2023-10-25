@@ -17,7 +17,7 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
     });
 
     const courseIds =
-        tableProps?.dataSource?.map((item) => item.courseid) ?? [];
+        tableProps?.dataSource?.map((item) => item.courseid.toString()) ?? [];
     const {data: coursesData, isLoading} = useMany<ICourse>({
         resource: "course",
         ids: courseIds,
@@ -26,8 +26,8 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
         },
     });
     const classIds =
-        tableProps?.dataSource?.map((item) => item.classid) ?? [];
-    const {data: classesData, isLoading2} = useMany<IClass>({
+        tableProps?.dataSource?.map((item) => item.classid.toString()) ?? [];
+    const {data: classesData, isLoading: isLoading2} = useMany<IClass>({
         resource: "class",
         ids: classIds,
         queryOptions: {
@@ -35,7 +35,7 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
         },
     });
 
-    function dayToString(day) {
+    function dayToString(day:number): String {
         switch (day - 1) {
             case 0:
                 return "Monday";
@@ -86,7 +86,7 @@ export const ScheduleList: React.FC<IResourceComponentsProps<GetListResponse<ICo
                         return (
                             <TextField
                                 value={
-                                    classesData?.data.find((item) => item.classid === value)?.displayname
+                                    classesData?.data.find((item) => item.classid === value)?.classid
                                 }
                             />
                         );
